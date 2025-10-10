@@ -9,3 +9,5 @@ The results were unsurprising but also underwhelming. In nearly all of my tests,
 The real discovery, however, came when I ran the same pure-Python code on PyPy. With its JIT enabled, PyPy was nearly four times faster than any version of standard CPython. 
 
 So I guess, I won't be rushing to migrate my ML projects to Python 3.14. The real lesson was a powerful reminder of PyPy's strength. If you have a workflow that can run entirely within PyPy, the speed benefits are undeniable.
+
+Benchmark code: [code](sigmoid_exp_bench.py) 
