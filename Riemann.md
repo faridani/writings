@@ -182,7 +182,7 @@ $$
 The symbol $\sim$ means that the ratio tends to 1 as $x$ grows. Throughout this essay, $\log$ is the natural logarithm. A more accurate smooth guide at large scales is the logarithmic integral, defined here using the standard principal-value convention:
 
 $$
-\mathrm{li}(x)=\mathrm{PV}\,\int_0^x\frac{dt}{\log t}
+\mathrm{li}(x)=\mathrm{PV}\int_0^x\frac{dt}{\log t}
 =\mathrm{Ei}(\log x).
 $$
 
@@ -343,7 +343,7 @@ The two coordinates of a zero play different roles:
 
 On the critical line, the first factor is $\sqrt{x}$. Adding a conjugate pair produces a real oscillation, which is why pairs are convenient for reconstructing a real-valued prime count.
 
-There is a useful analogy with synthesizing a signal from frequencies. Lower zeros supply broad variations. Higher zeros supply finer variations. Near a fixed value of $x$, the phase $\gamma\log x$ changes by approximately $\gamma\,\Delta x/x$, so a full oscillation has local scale
+There is a useful analogy with synthesizing a signal from frequencies. Lower zeros supply broad variations. Higher zeros supply finer variations. Near a fixed value of $x$, the phase $\gamma\log x$ changes by approximately $\gamma\Delta x/x$, so a full oscillation has local scale
 
 $$
 \Delta x\approx\frac{2\pi x}{\gamma}.
@@ -376,7 +376,7 @@ Riemann's explicit formula expresses this function using the zeros. A convenient
 $$
 \begin{aligned}
 J_0(x)={}&\mathrm{Ei}(\log x)
--2\lim_{T\to\infty}\mathrm{Re}\,
+-2\lim_{T\to\infty}\mathrm{Re}
 \sum_{0<\mathrm{Im}(\rho)\le T}
 \mathrm{Ei}(\rho\log x)\\
 &-\log2+

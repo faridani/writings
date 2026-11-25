@@ -63,7 +63,7 @@ For $y>1$, the truncated prime-power count is
 
 $$
 J_K(y)=\mathrm{Ei}(\log y)
--2\mathrm{Re}\,\sum_{n=1}^{K}\mathrm{Ei}\bigl((\tfrac12+i\gamma_n)\log y\bigr)
+-2\mathrm{Re}\sum_{n=1}^{K}\mathrm{Ei}\bigl((\tfrac12+i\gamma_n)\log y\bigr)
 -\log2+\sum_{j=1}^{\infty}E_1(2j\log y).
 $$
 
