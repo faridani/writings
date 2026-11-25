@@ -166,10 +166,10 @@ These examples connect prime-based mathematics to private communication, efficie
 Define
 
 ```math
-\pi(x)=\operatorname{card}\left\lbrace p\le x : p\text{ is prime}\right\rbrace.
+\pi(x)=\mathrm{card}\left\lbrace p\le x : p\text{ is prime}\right\rbrace.
 ```
 
-Here $\operatorname{card}$ means the number of elements in the set. The symbol $\pi(x)$ means “prime count,” not the circle constant. For example, $\pi(10)=4$ because the primes up to 10 are 2, 3, 5, and 7. Also, $\pi(100)=25$.
+Here $\mathrm{card}$ means the number of elements in the set. The symbol $\pi(x)$ means “prime count,” not the circle constant. For example, $\pi(10)=4$ because the primes up to 10 are 2, 3, 5, and 7. Also, $\pi(100)=25$.
 
 Plotting $\pi(x)$ gives a staircase. It jumps by one at every prime and stays flat between primes. The individual steps are irregular, but the broad trend is remarkably regular.
 
@@ -182,11 +182,11 @@ $$
 The symbol $\sim$ means that the ratio tends to 1 as $x$ grows. Throughout this essay, $\log$ is the natural logarithm. A more accurate smooth guide at large scales is the logarithmic integral, defined here using the standard principal-value convention:
 
 $$
-\operatorname{li}(x)=\operatorname{PV}\int_0^x\frac{dt}{\log t}
-=\operatorname{Ei}(\log x).
+\mathrm{li}(x)=\mathrm{PV}\,\int_0^x\frac{dt}{\log t}
+=\mathrm{Ei}(\log x).
 $$
 
-The principal value, written PV, balances the two sides of the singularity at $t=1$. The name $\operatorname{Ei}$ denotes the exponential integral used by our numerical library. The derivative of $\operatorname{li}(x)$ is $1/\log x$, so the integral accumulates a predicted density. This motivates the heuristic that primes near a large number $x$ have average density about $1/\log x$. It does not treat primality as a sequence of independent coin flips.[^pnt][^li]
+The principal value, written PV, balances the two sides of the singularity at $t=1$. The name $\mathrm{Ei}$ denotes the exponential integral used by our numerical library. The derivative of $\mathrm{li}(x)$ is $1/\log x$, so the integral accumulates a predicted density. This motivates the heuristic that primes near a large number $x$ have average density about $1/\log x$. It does not treat primality as a sequence of independent coin flips.[^pnt][^li]
 
 ![The exact prime-counting staircase and its smooth logarithmic-integral approximation from 2 to 100.](riemann/assets/prime_count_and_logarithmic_integral.png)
 
@@ -220,7 +220,7 @@ $$
 (2^2\cdot3\cdot5)^{-s}=60^{-s}.
 $$
 
-Unique factorization tells us exactly why every positive integer appears once. With the convergence condition $\operatorname{Re}(s)>1$ in place, this gives Euler's product:
+Unique factorization tells us exactly why every positive integer appears once. With the convergence condition $\mathrm{Re}(s)>1$ in place, this gives Euler's product:
 
 $$
 \boxed{\displaystyle
@@ -279,13 +279,13 @@ $$
 \eta(s)=(1-2^{1-s})\zeta(s).
 $$
 
-The alternating series converges in the larger region $\operatorname{Re}(s)>0$. Consequently,
+The alternating series converges in the larger region $\mathrm{Re}(s)>0$. Consequently,
 
 $$
 \zeta(s)=\frac{\eta(s)}{1-2^{1-s}}
 $$
 
-provides a continuation throughout the strip $0<\operatorname{Re}(s)<1$, where the denominator is nonzero. More generally, zeta continues across the complex plane with a single pole at $s=1$.[^zeta]
+provides a continuation throughout the strip $0<\mathrm{Re}(s)<1$, where the denominator is nonzero. More generally, zeta continues across the complex plane with a single pole at $s=1$.[^zeta]
 
 This is a crucial step in the story. The continuation lets us investigate a region that the original infinite sum could not reach.
 
@@ -306,7 +306,7 @@ $$
 Its other zeros lie in the *critical strip*
 
 $$
-0<\operatorname{Re}(\rho)<1.
+0<\mathrm{Re}(\rho)<1.
 $$
 
 The Riemann hypothesis is the statement that every one of these nontrivial zeros has real part exactly $1/2$. This vertical line is called the *critical line*.[^zeros]
@@ -375,10 +375,10 @@ Riemann's explicit formula expresses this function using the zeros. A convenient
 
 $$
 \begin{aligned}
-J_0(x)={}&\operatorname{Ei}(\log x)
--2\lim_{T\to\infty}\operatorname{Re}
-\sum_{0<\operatorname{Im}\rho\le T}
-\operatorname{Ei}(\rho\log x)\\
+J_0(x)={}&\mathrm{Ei}(\log x)
+-2\lim_{T\to\infty}\mathrm{Re}\,
+\sum_{0<\mathrm{Im}(\rho)\le T}
+\mathrm{Ei}(\rho\log x)\\
 &-\log2+
 \int_x^\infty\frac{dt}{t(t^2-1)\log t}.
 \end{aligned}
@@ -480,13 +480,13 @@ The graph also illustrates a distinction worth preserving even after a proof of 
 Return to the discrepancy
 
 $$
-E(x)=\pi(x)-\operatorname{li}(x).
+E(x)=\pi(x)-\mathrm{li}(x).
 $$
 
 A standard equivalent formulation of RH is
 
 $$
-\pi(x)=\operatorname{li}(x)+O(\sqrt{x}\log x).
+\pi(x)=\mathrm{li}(x)+O(\sqrt{x}\log x).
 $$
 
 The $O$ notation says that, beyond some cutoff, the absolute error is bounded by a constant times $\sqrt{x}\log x$. It is a bound on the accumulated prime count, not an exact prediction of the next prime.[^bombieri]
@@ -496,14 +496,14 @@ The explicit formula explains why the real part $1/2$ is significant. A zero wit
 There is also a precise classical bound: RH is equivalent to
 
 $$
-\left|\pi(x)-\operatorname{li}(x)\right|
+\left|\pi(x)-\mathrm{li}(x)\right|
 <\frac{\sqrt{x}\log x}{8\pi},
 \qquad x\ge2657.
 $$
 
 Here the $\pi$ in $8\pi$ is the circle constant.[^pnt]
 
-An illustrative calculation makes the scale concrete. At $x=10^{12}$, the right-hand side is about $1.10$ million. The smooth estimate $\operatorname{li}(10^{12})$ is about $3.76\times10^{10}$, so this bound is small relative to the estimated total count. It is still an allowed error of more than a million: a rigorous estimate and an exact answer serve different purposes.
+An illustrative calculation makes the scale concrete. At $x=10^{12}$, the right-hand side is about $1.10$ million. The smooth estimate $\mathrm{li}(10^{12})$ is about $3.76\times10^{10}$, so this bound is small relative to the estimated total count. It is still an allowed error of more than a million: a rigorous estimate and an exact answer serve different purposes.
 
 The same global statement cannot be established by our very accurate small graph. The graph helps us see the mechanism; the theorem controls it beyond the plotted range.
 
@@ -545,11 +545,11 @@ The code keeps the sieve separate from the zero-based reconstruction and records
 
 Three implementation choices deserve explanation:
 
-1. **Evaluate the complex exponential integral directly.** The code uses $\operatorname{Ei}(\rho\log x)$. Computing a complex power first and then taking its principal logarithm can wrap the phase and evaluate the wrong expression.
+1. **Evaluate the complex exponential integral directly.** The code uses $\mathrm{Ei}(\rho\log x)$. Computing a complex power first and then taking its principal logarithm can wrap the phase and evaluate the wrong expression.
 2. **Use the same prime-power cutoff throughout this experiment.** For $2\le x\le100$, the Möbius sum uses $m\le6$ everywhere. The exact $J(y)$ vanishes below 2, but its finite approximation need not. Changing the cutoff as $x$ moves can therefore introduce artificial jumps.
 3. **Distinguish numerical error from truncation error.** Agreement between two implementations of the same finite formula checks the numerical evaluation. Agreement with the prime staircase measures what is lost by retaining finitely many zeros. Neither check is a proof about every zero.
 
-Useful next experiments are to move the close-up from $20$–$40$ to $60$–$80$ while keeping the same zero count, compare behavior at primes and prime powers, and test how smoothing the zero cutoff changes the ringing. Extending the computation beyond 100 also requires revisiting the prime-power cutoff and the accelerated evaluator's numerical settings. Each experiment asks a precise question that the code can help answer.
+Useful next experiments are to move the close-up from 20–40 to 60–80 while keeping the same zero count, compare behavior at primes and prime powers, and test how smoothing the zero cutoff changes the ringing. Extending the computation beyond 100 also requires revisiting the prime-power cutoff and the accelerated evaluator's numerical settings. Each experiment asks a precise question that the code can help answer.
 
 ## Sources and further reading
 

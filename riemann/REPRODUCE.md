@@ -55,15 +55,15 @@ The generator needs Pillow and uses Matplotlib's bundled DejaVu fonts.
 
 ## Formula and conventions
 
-The logarithmic integral is $\operatorname{li}(x)=\operatorname{Ei}(\log x)$
+The logarithmic integral is $\mathrm{li}(x)=\mathrm{Ei}(\log x)$
 with the principal-value convention. It is **not** the shifted integral
 $\int_2^xdt/\log t$.
 
 For $y>1$, the truncated prime-power count is
 
 $$
-J_K(y)=\operatorname{Ei}(\log y)
--2\operatorname{Re}\sum_{n=1}^{K}\operatorname{Ei}\bigl((\tfrac12+i\gamma_n)\log y\bigr)
+J_K(y)=\mathrm{Ei}(\log y)
+-2\mathrm{Re}\,\sum_{n=1}^{K}\mathrm{Ei}\bigl((\tfrac12+i\gamma_n)\log y\bigr)
 -\log2+\sum_{j=1}^{\infty}E_1(2j\log y).
 $$
 
@@ -90,7 +90,7 @@ included $J_K(x^{1/m})$ terms approximate an exact value of zero; they
 still have finite-sum fluctuations.
 
 The complex expression is evaluated as
-$\operatorname{Ei}(\rho\log y)$ directly. Forming $y^\rho$ first and then
+$\mathrm{Ei}(\rho\log y)$ directly. Forming $y^\rho$ first and then
 taking a principal logarithm would wrap the phase and use the wrong
 branch. The zero pairs include both positive and negative imaginary
 parts. At a prime, the infinite formula gives the midpoint of the jump.
