@@ -1,4 +1,4 @@
-# Versions used to generate the committed figures and animation (Python 3.12).
+# Versions used to generate the committed figures and animations (Python 3.12).
 numpy==2.3.5
 scipy==1.17.0
 matplotlib==3.10.8

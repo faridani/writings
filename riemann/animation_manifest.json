@@ -1,0 +1,197 @@
+{
+  "animations": [
+    {
+      "file": "analytic_continuation.gif",
+      "dimensions": [
+        1000,
+        650
+      ],
+      "frames": 13,
+      "duration_seconds": 15.2,
+      "loop_forever": true,
+      "size_bytes": 63559,
+      "sha256": "0339d5ea2feafc4dfac49be8184739e114ae8a5d7734bb81d6425cf3319098a8"
+    },
+    {
+      "file": "complex_rotation.gif",
+      "dimensions": [
+        1000,
+        650
+      ],
+      "frames": 151,
+      "duration_seconds": 16.19,
+      "loop_forever": true,
+      "size_bytes": 718556,
+      "sha256": "a527d2d4834642d44afd6aefc5148b0062086b22c93d71c23b1f645974ec1d81"
+    },
+    {
+      "file": "conjugate_waves.gif",
+      "dimensions": [
+        1000,
+        650
+      ],
+      "frames": 183,
+      "duration_seconds": 19.64,
+      "loop_forever": true,
+      "size_bytes": 952870,
+      "sha256": "93add8e15f924944bc6ea3370991baadab6780476b850a3495dddbf32c52b1c9"
+    },
+    {
+      "file": "euler_product.gif",
+      "dimensions": [
+        1000,
+        650
+      ],
+      "frames": 21,
+      "duration_seconds": 19.6,
+      "loop_forever": true,
+      "size_bytes": 116431,
+      "sha256": "980262c15865a3eb9a9378526971b908b9f3b978e681b8cf90945f1c789636c3"
+    },
+    {
+      "file": "factorization_routes.gif",
+      "dimensions": [
+        1000,
+        650
+      ],
+      "frames": 16,
+      "duration_seconds": 11.98,
+      "loop_forever": true,
+      "size_bytes": 122011,
+      "sha256": "bf753cb31051bcfc526ecf6f155049f1e8ac06accfd07e95e9fbecce84205aca"
+    },
+    {
+      "file": "gibbs_zoom.gif",
+      "dimensions": [
+        1000,
+        650
+      ],
+      "frames": 80,
+      "duration_seconds": 15.92,
+      "loop_forever": true,
+      "size_bytes": 628626,
+      "sha256": "4de9c94f2d18544ba9a283cf6b5b32251e970b7bac2679fe0bc91b4a07e69376"
+    },
+    {
+      "file": "mobius_correction.gif",
+      "dimensions": [
+        1000,
+        650
+      ],
+      "frames": 5,
+      "duration_seconds": 15.1,
+      "loop_forever": true,
+      "size_bytes": 45782,
+      "sha256": "6d7a8a0759bb10c98bd4df85ae488ecec7b1bafa18db18e5d97f5371c30f9310"
+    },
+    {
+      "file": "modular_arithmetic.gif",
+      "dimensions": [
+        1000,
+        650
+      ],
+      "frames": 21,
+      "duration_seconds": 15.2,
+      "loop_forever": true,
+      "size_bytes": 134295,
+      "sha256": "b5e58de4d0ff03ef44f3628b1111bef893b4a0af2accecdc546b701911a16d44"
+    },
+    {
+      "file": "prime_count_error_bound.gif",
+      "dimensions": [
+        1000,
+        650
+      ],
+      "frames": 90,
+      "duration_seconds": 16.72,
+      "loop_forever": true,
+      "size_bytes": 490277,
+      "sha256": "689888efe49612c1c7a0be73f34141f3b01dc02149ceaad2a0ed24c9038c6f7a"
+    },
+    {
+      "file": "prime_count_staircase.gif",
+      "dimensions": [
+        1000,
+        650
+      ],
+      "frames": 101,
+      "duration_seconds": 15.28,
+      "loop_forever": true,
+      "size_bytes": 479420,
+      "sha256": "934098a3d3c4520707296ad8b76e0638798370503cbfc6a274daec0d56865f3e"
+    },
+    {
+      "file": "prime_powers.gif",
+      "dimensions": [
+        1000,
+        650
+      ],
+      "frames": 61,
+      "duration_seconds": 22.15,
+      "loop_forever": true,
+      "size_bytes": 345470,
+      "sha256": "c9fe28ebe73b0364e1a59c6f8986b44a776b6f27fbf3936241dcfdc46a82fca1"
+    },
+    {
+      "file": "rsa_toy_example.gif",
+      "dimensions": [
+        1000,
+        650
+      ],
+      "frames": 25,
+      "duration_seconds": 19.62,
+      "loop_forever": true,
+      "size_bytes": 109395,
+      "sha256": "e69ada61bf38d185b8749a3373062a37664aa4322d24c336569f34755ff8a435"
+    },
+    {
+      "file": "sieve_of_eratosthenes_1_to_100.gif",
+      "dimensions": [
+        900,
+        1100
+      ],
+      "frames": 174,
+      "duration_seconds": 54.2,
+      "loop_forever": true,
+      "size_bytes": 1440946,
+      "sha256": "ea29d830bb504e2beb65556232b4d47b2f82423a9cf15b96044ee2fc69a6f258"
+    },
+    {
+      "file": "trial_division.gif",
+      "dimensions": [
+        1000,
+        650
+      ],
+      "frames": 9,
+      "duration_seconds": 13.8,
+      "loop_forever": true,
+      "size_bytes": 75977,
+      "sha256": "48bc3f8f2d44fd67b449fa7594803b607cd48078beb1ebcfc409a7b28e92b143"
+    },
+    {
+      "file": "zero_reconstruction.gif",
+      "dimensions": [
+        1000,
+        650
+      ],
+      "frames": 14,
+      "duration_seconds": 18.2,
+      "loop_forever": true,
+      "size_bytes": 144219,
+      "sha256": "1455e962cbb9322feb025dee38357edce12c1853c3323ef2be50e0c141a3bcc0"
+    },
+    {
+      "file": "zeta_zero_pairs.gif",
+      "dimensions": [
+        1000,
+        650
+      ],
+      "frames": 21,
+      "duration_seconds": 19.8,
+      "loop_forever": true,
+      "size_bytes": 101954,
+      "sha256": "28a528f5cc0f2f8a4a1c46fcb704e72fb795eb63e3958b16faaf740cfb32d86a"
+    }
+  ],
+  "total_size_bytes": 5969788
+}

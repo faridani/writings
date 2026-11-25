@@ -1,10 +1,11 @@
-# Reproduce the Riemann figures and sieve animation
+# Reproduce the Riemann figures and animations
 
 From the repository root, using Python 3.12 or newer:
 
 ```bash
 python -m pip install -r riemann/requirements.txt
 python riemann/generate_figures.py
+python riemann/generate_animations.py
 ```
 
 The generator uses the bundled zero table, so rebuilding does not require
@@ -12,6 +13,11 @@ network access after installing the dependencies. It creates all five
 PNGs in `riemann/assets/` and refreshes `riemann/validation.json`. There are
 no precomputed curve caches in the repository. The supplied dependency
 versions were used to generate the committed figures.
+
+The animation command rebuilds all 16 GIFs, including the original sieve,
+and writes `riemann/animation_manifest.json`. That manifest records the
+actual dimensions, frame counts, loop durations, file sizes, and SHA-256
+hashes after decoding the saved files.
 
 For a different output directory or thread count:
 
@@ -32,6 +38,67 @@ python riemann/generate_figures.py --output-dir output/riemann --threads 2
   with an overview, a close-up, and a magnified jump at the prime 29.
 - `zeta_zeros.png`: the first few trivial zeros and the first ten
   conjugate pairs of nontrivial zeros in the complex plane.
+
+## What the animations explain
+
+Every animation loops and uses holds so its important stages can be read.
+The source calculations determine the diagrams and curves; these are not
+generated illustrations or interpolations invented to resemble a result.
+
+| Animation | Concept | Generator group |
+|---|---|---|
+| [Factorization routes](assets/factorization_routes.gif) | Different decompositions of 60 give the same prime factors. | `primes` |
+| [Trial division](assets/trial_division.gif) | Exact quotient/remainder tests distinguish 97 from 91. | `primes` |
+| [Prime-count staircase](assets/prime_count_staircase.gif) | A moving cutoff adds one step at each prime through 100. | `primes` |
+| [Sieve of Eratosthenes](assets/sieve_of_eratosthenes_1_to_100.gif) | Circle primes and cross their multiples, including repeated visits. | `sieve` |
+| [Toy RSA](assets/rsa_toy_example.gif) | Tiny example keys encrypt 65 to 2790 and recover 65. | `primes` |
+| [Modular arithmetic](assets/modular_arithmetic.gif) | Addition, multiplication, and an inverse on a modulo-7 clock. | `primes` |
+| [Euler product](assets/euler_product.gif) | Adding prime factors reveals their products and approaches zeta at 2. | `zeta` |
+| [Complex rotation](assets/complex_rotation.gif) | Rotating terms demonstrate cancellation in an eight-term partial sum. | `zeta` |
+| [Analytic continuation](assets/analytic_continuation.gif) | A continued function can exist where its original series diverges. | `zeta` |
+| [Zeta-zero pairs](assets/zeta_zero_pairs.gif) | Ten known conjugate pairs appear on the critical line. | `zeta` |
+| [Conjugate waves](assets/conjugate_waves.gif) | Opposite imaginary parts cancel, leaving real oscillations. | `zeta` |
+| [Prime-power counts](assets/prime_powers.gif) | Prime squares, cubes, and higher powers contribute weighted steps. | `reconstruction` |
+| [Mobius correction](assets/mobius_correction.gif) | Successive corrections recover ordinary prime counts from weighted counts. | `reconstruction` |
+| [Zero reconstruction](assets/zero_reconstruction.gif) | Actual finite formulas sharpen the staircase as the zero count grows. | `reconstruction` |
+| [Zoom at prime 29](assets/gibbs_zoom.gif) | A fixed 10,000-pair curve reveals ringing under magnification. | `reconstruction` |
+| [Prime-count error bound](assets/prime_count_error_bound.gif) | Sieve discrepancies are compared with the classical RH envelope. | `error` |
+
+Rebuild just one group, or check the committed GIF files without rebuilding:
+
+```bash
+python riemann/generate_animations.py --group reconstruction
+python riemann/generate_animations.py --verify-existing
+```
+
+The other groups are `primes`, `zeta`, `error`, and `sieve`. The individual
+`animate_*.py` scripts can also be run directly. The default output directory
+is `riemann/assets`; use `--output-dir` for a separate destination.
+`animation_utils.py` supplies the common layout and a shared color palette
+within each GIF. Optimized frame rectangles keep downloads small without
+changing the mathematical positions or the animation's timing.
+
+### Numerical conventions in the animations
+
+- The prime-power and Mobius demonstrations use exact right-continuous
+  weighted counts and prime counts. The zero-based reconstruction uses
+  the midpoint convention described below. These conventions are named
+  in the article captions so values at jumps are not confused.
+- The zero-count animation evaluates each displayed count separately.
+  It does not morph between different finite sums and label the morph as
+  an evaluated formula. Its black reference staircase is independent.
+- The zoom holds all 10,000 zero pairs fixed. Its dense nonuniform samples
+  resolve the small oscillations around 29 as the axes change scale.
+- The rotating vectors are finite illustrations at real part 1.5, where
+  the defining series converges. They are not used to evaluate zeta in
+  the critical strip. The conjugate-wave animation isolates a building
+  block; it is not presented as the complete prime-counting formula.
+- The error-bound animation computes sieve counts through one million
+  and compares 6,000 integer cutoffs with the classical envelope for
+  x at least 2657. That finite numerical check is not a proof of RH.
+- The RSA example uses deliberately tiny, insecure numbers to show the
+  arithmetic. It is not an implementation of a production encryption
+  scheme.
 
 ## Animated sieve
 

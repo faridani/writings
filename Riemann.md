@@ -16,6 +16,8 @@ The inspiration is a sentence Richard Feynman left on his blackboard:
 
 Here, “from scratch” means making the chain of ideas visible. We will write a small prime finder, explain why primes are useful, derive the bridge to the zeta function, and watch the prime-counting staircase emerge as we add more zero pairs. The numerical work uses established libraries for special functions; rebuilding all of numerical analysis would be a different project.
 
+The animations develop the same chain visually. Follow the [factorizations](#1-the-building-blocks-of-multiplication), [sieve](#many-small-primes-the-sieve), [complex rotations](#6-why-complex-numbers-enter), and [zero-by-zero reconstruction](#10-add-10-then-50-then-10000-zero-pairs). Each animation loops, with pauses at its key steps.
+
 > **A note on the date — November 24, 2026.** This essay uses the traditional name *Riemann hypothesis*. On November 20, Levent Alpöge released a formal proof in Lean. The Lean FRO and Mathlib Initiative subsequently certified the RH statement and proof, and Andrew Sutherland's MIT verification record documents independent builds and proof checks. The verified statements also cover GRH for Dirichlet $L$-functions. Work to explain and simplify the argument continues. This essay develops the statement and a numerical experiment; it does not reproduce or independently audit that formal proof.[^lean][^verification][^announcement]
 
 ## 1. The building blocks of multiplication
@@ -27,6 +29,10 @@ $$
 $$
 
 We can group those factors into $6\times10$ or $4\times15$, but breaking the groups down again leads to the same primes. This is the fundamental theorem of arithmetic.
+
+![Two factor trees split 60 into 6 times 10 and 4 times 15, then arrive at the same prime factors 2, 2, 3, and 5.](riemann/assets/factorization_routes.gif)
+
+*Split 60 along two different routes. Once every factor is prime, both routes contain two 2s, one 3, and one 5. Their order changes; the prime factors do not.*
 
 Excluding 1 from the primes keeps this statement clean. Otherwise we could keep inserting factors of 1 without changing the number. Two is the only even prime: every larger even number has 2 as an additional divisor.
 
@@ -61,11 +67,15 @@ print([n for n in range(2, 30) if is_prime(n)])
 
 Every line has a mathematical reason. The first condition handles numbers outside the definition. The loop implements the square-root argument. Finding one divisor is enough to reject a candidate.
 
+![Trial divisions compare 97 and 91. The calculation finds 7 times 13 equals 91, while 97 has no divisor from 2 through 9.](riemann/assets/trial_division.gif)
+
+*Each attempted divisor produces an exact quotient and remainder. A zero remainder settles 91 at 7 × 13. For 97, checking through 9 is enough because its square root is less than 10.*
+
 Running the test for each integer from 0 through 100 gives a list of primes. We can then keep a running count, written $\pi(x)$: the number of primes less than or equal to $x$.
 
-![A staircase showing the number of primes less than or equal to each number x from 0 to 100. The count starts at 0 and reaches 25 at x equals 100.](riemann/assets/prime_count_0_to_100.png)
+![An animated cutoff moves from 0 to 100, adding one step to the running prime count at each prime and ending at 25.](riemann/assets/prime_count_staircase.gif)
 
-*The horizontal axis runs from 0 to 100. The vertical axis is the number of primes found so far, $\pi(x)$. The count rises by one at each prime and stays flat between primes. For example, $\pi(10)=4$ and $\pi(100)=25$.*
+*Move the cutoff from 0 to 100. The vertical axis is the number of primes found so far, π(x). The total rises at each prime and stays flat between primes, ending at π(100) = 25. For a stationary view, open the [complete staircase](riemann/assets/prime_count_0_to_100.png).*
 
 ## 2. How we find primes today
 
@@ -137,6 +147,10 @@ $$
 
 As a tiny illustration, $61\times53=3233$, and $\varphi(3233)=60\times52=3120$. Real keys use much larger numbers and a complete cryptographic scheme.
 
+![A toy RSA example builds public and private keys from 61 and 53, encrypts message 65 to 2790, and decrypts it back to 65.](riemann/assets/rsa_toy_example.gif)
+
+*These deliberately tiny RSA values make every stage visible: choose the factors, construct the keys, encrypt 65 into 2790, and recover 65. The example shows the arithmetic; real schemes also require secure key sizes and encoding.*
+
 Multiplying known factors is straightforward. Recovering the factors from a large product is a different problem. Knowing $p$ and $q$ allows recovery of the RSA private key. The original RSA paper explicitly connects its security, in part, to the difficulty of factoring.[^rsa]
 
 This is why efficient prime generation is compatible with RSA: the legitimate user chooses the factors first. An attacker is given their product. Factoring the modulus is sufficient to break RSA. Whether every efficient way to reverse RSA's public operation would also give an efficient factoring method is a separate question.[^rsa-problem]
@@ -150,6 +164,10 @@ $$
 $$
 
 The second equation says that 5 behaves as the multiplicative inverse of 3. When the modulus is prime, every nonzero remainder has an inverse. The result is a finite field: an arithmetic system in which addition, subtraction, multiplication, and division by nonzero elements behave consistently.
+
+![A clock with residues 0 through 6 demonstrates 5 plus 4 equals 2 modulo 7 and 3 times 5 equals 1 modulo 7.](riemann/assets/modular_arithmetic.gif)
+
+*Arithmetic modulo 7 wraps around seven remainders. Four steps from 5 end at 2; three groups of five end at 1. The second calculation makes 5 the multiplicative inverse of 3.*
 
 X25519, an elliptic-curve method for agreeing on a shared secret, uses the public prime $2^{255}-19$. Its secret values participate in curve operations; the prime itself is published in the specification. This is a different use of primes from hiding RSA's factors.[^x25519]
 
@@ -230,6 +248,10 @@ $$
 
 The same function can be assembled from all integers or from just the primes. This identity is the bridge we need.[^zeta]
 
+![Successive prime factors in the Euler product at s equals 2 reveal integers made from those primes and bring the product closer to zeta of 2.](riemann/assets/euler_product.gif)
+
+*Each added prime unlocks integers whose prime factors are now available. The grid displays integers up to 60, while each Euler factor includes every power of its prime. The numerical product approaches ζ(2) = π²/6 as more primes are included.*
+
 There is another useful detail hidden in the product. For real $s>1$, expanding its logarithm gives
 
 $$
@@ -257,6 +279,10 @@ $$
 
 The size of this term is $n^{-\sigma}$, while its direction rotates as $t$ changes. Complex inputs allow cancellation among terms pointing in different directions.
 
+![A complex term rotates as the imaginary input changes, while eight terms added head to tail show partial cancellation.](riemann/assets/complex_rotation.gif)
+
+*Changing the imaginary coordinate turns the terms at different rates. Head-to-tail addition shows how their directions can partly cancel. This is a finite illustration with eight terms and real part 1.5; it is not the continued zeta function in the critical strip.*
+
 But the original series only converges for $\sigma>1$. We cannot simply substitute $\sigma=1/2$ into that series and assume it still defines the function.
 
 The extension is called *analytic continuation*. A familiar analogy is
@@ -266,6 +292,10 @@ $$
 $$
 
 The series fails at $z=2$, but the function on the right still makes sense there. Evaluating the continued function at 2 does not make the divergent series an ordinary convergent sum.
+
+![Geometric-series partial sums approach 2 at z equals one half but grow at z equals 2, where the continued rational function has value negative 1.](riemann/assets/analytic_continuation.gif)
+
+*At z = 1/2, adding terms approaches 2. At z = 2, the partial sums grow, even though the rational function 1/(1 − z) has the finite value −1. Continuing the function does not make the divergent series converge.*
 
 For zeta, we can see part of the continuation concretely through the alternating series
 
@@ -321,9 +351,9 @@ The first few positive imaginary parts are approximately
 
 For each listed zero $\rho_n=1/2+i\gamma_n$, its complex conjugate $1/2-i\gamma_n$ is also a zero. In our graphs, **one zero pair** means these two zeros. Ten thousand pairs therefore means 20,000 nontrivial zeros, represented by 10,000 positive heights.[^odlyzko]
 
-![The first zeta zero pairs in the complex plane, with the critical strip and the line of real part one half marked.](riemann/assets/zeta_zeros.png)
+![The first ten positive zeta-zero heights and their negative conjugates appear pair by pair on the critical line with real part one half.](riemann/assets/zeta_zero_pairs.gif)
 
-*Here the horizontal coordinate is the real part of a complex input. In the prime-counting graphs it is the real-number cutoff $x$. These are different plots with different meanings for their axes.*
+*Watch ten known conjugate pairs appear, giving 20 nontrivial zeros. Here the horizontal coordinate is the real part of a complex input; in the prime-counting graphs it is the numerical cutoff x. This finite collection illustrates the locations without proving a statement about every zero. The [still figure](riemann/assets/zeta_zeros.png) is also available.*
 
 A symmetric arrangement by itself would not establish RH: points can be symmetric about a line while lying on either side of it. The assertion is that every nontrivial zero is actually on the line.
 
@@ -351,6 +381,10 @@ $$
 
 This also explains a limitation: the same finite set of zeros gives coarser spatial resolution as we move farther out along the number line.
 
+![Conjugate complex rotations cancel in the imaginary direction and combine into a real wave, with higher zero heights creating more rapid oscillations.](riemann/assets/conjugate_waves.gif)
+
+*Two conjugate rotations have opposite imaginary parts, so their sum is real. Increasing the zero height makes the oscillation faster in log(x). This animation isolates a building block; the complete prime-counting formula also needs exponential integrals and prime-power corrections.*
+
 The analogy needs one qualification. The exact prime-counting reconstruction contains exponential-integral terms and prime-power corrections, not just a freely chosen sum of sine waves. The frequencies and weights come from the mathematics.
 
 ## 9. The explicit formula: rebuilding the staircase
@@ -370,6 +404,10 @@ For example, below 10 there are four primes, two prime squares (4 and 9), and on
 $$
 J(10)=4+\frac12\cdot2+\frac13\cdot1=\frac{16}{3}.
 $$
+
+![The cutoff moves through 30 while primes add one to J, prime squares add one half, and higher prime powers add smaller weighted jumps.](riemann/assets/prime_powers.gif)
+
+*The weighted staircase J also jumps at prime powers. A prime adds 1, its square adds 1/2, its cube adds 1/3, and so on. Compare those extra steps with the ordinary prime count. This animation uses the right-continuous counts, before applying the midpoint convention.*
 
 Riemann's explicit formula expresses this function using the zeros. A convenient paired form is
 
@@ -419,6 +457,10 @@ $$
 
 For example, at $x=10$ the correction gives $16/3-1-1/3=4$. For $m\ge7$, even $100^{1/m}<2$, below the first prime, so the remaining exact terms vanish.
 
+![Successive Mobius corrections remove square, cube, and fifth-power contributions and restore the sixth-power overlap until the weighted count becomes the exact prime count.](riemann/assets/mobius_correction.gif)
+
+*Start with J, subtract the square, cube, and fifth-power contributions, then restore the sixth-power overlap. The final curve matches the prime staircase. These are exact right-continuous counts J and π; the midpoint versions in the displayed formula use the same correction.*
+
 At an ordinary nonprime point, $\pi_0(x)=\pi(x)$. At a prime $p$, the midpoint convention gives
 
 $$
@@ -440,9 +482,9 @@ The experiment has two independent inputs:
 
 The zero heights come from Andrew Odlyzko's published table. We use the first 10,000 positive heights, ending near $\gamma_{10000}=9877.782654004$. The source states an absolute accuracy of $3\times10^{-9}$ for the table.[^odlyzko]
 
-![Six comparisons of the exact prime count with reconstructions using 0, 10, 50, 200, 1000, and 10000 zero pairs.](riemann/assets/zero_pair_progression.png)
+![Actual explicit-formula reconstructions progress from zero to ten thousand zeta-zero pairs against the exact prime-count staircase on the fixed interval 20 to 40.](riemann/assets/zero_reconstruction.gif)
 
-*Each panel uses the same close-up interval and vertical scale. The black staircase is the independent prime count. The colored curve uses the indicated number of zero pairs. The zero-pair-free curve includes the smooth and trivial-zero corrections; it is not simply the logarithmic integral.*
+*Keep the interval and vertical scale fixed while the zero-pair count increases from 0 to 10,000. Every displayed reconstruction is computed from that many zero pairs. The black staircase comes from an independent sieve. The zero-pair-free curve includes the smooth and trivial-zero corrections; it is not simply the logarithmic integral. For side-by-side comparisons, open the [six-panel still figure](riemann/assets/zero_pair_progression.png).*
 
 With few zeros, the broad trend is visible but individual steps are blurred. Additional zeros sharpen the transitions. By 10,000 pairs, the reconstructed curve almost lies on the staircase at this scale.
 
@@ -466,6 +508,10 @@ Here are just the exact curve and the reconstruction using 10,000 pairs:
 ![Exact prime count versus its 10000-pair reconstruction, including a tight close-up of the jump at 29.](riemann/assets/primes_exact_vs_10000_zero_pairs.png)
 
 *The overview nearly hides the difference. The tight detail at 29 reveals a smooth transition and small oscillations around the jump.*
+
+![The view zooms toward the prime 29 while keeping ten thousand zero pairs fixed, revealing oscillations and the midpoint value near nine and a half.](riemann/assets/gibbs_zoom.gif)
+
+*Keep all 10,000 pairs fixed and zoom toward 29. The curves that appeared to coincide now reveal a rounded transition and ringing. The approximation passes near 9.5 at the jump, although the ordinary prime count at 29 is 10. Only the magnification changes during this animation.*
 
 Immediately below 29 there are nine primes; at 29 and immediately above it there are ten. At $x=29$, our finite reconstruction is approximately $9.49995$, close to the midpoint value $9.5$ specified by the infinite formula.
 
@@ -505,6 +551,10 @@ Here the $\pi$ in $8\pi$ is the circle constant.[^pnt]
 
 An illustrative calculation makes the scale concrete. At $x=10^{12}$, the right-hand side is about $1.10$ million. The smooth estimate $\mathrm{li}(10^{12})$ is about $3.76\times10^{10}$, so this bound is small relative to the estimated total count. It is still an allowed error of more than a million: a rigorous estimate and an exact answer serve different purposes.
 
+![Exact prime-count errors are revealed from 2657 through one million inside the positive and negative classical RH error bounds.](riemann/assets/prime_count_error_bound.gif)
+
+*Move through cutoffs from 2,657 to one million. The blue discrepancy is computed from exact sieve counts; the orange envelope is the classical bound stated above. The numerical example covers a finite range, while the theorem supplies the general guarantee.*
+
 The same global statement cannot be established by our very accurate small graph. The graph helps us see the mechanism; the theorem controls it beyond the plotted range.
 
 ## 13. How does this help us as humans?
@@ -538,7 +588,7 @@ From the repository root, with Python and a suitable environment:
 ~~~bash
 python -m pip install -r riemann/requirements.txt
 python riemann/generate_figures.py
-python riemann/generate_sieve_animation.py
+python riemann/generate_animations.py
 ~~~
 
 The code keeps the sieve separate from the zero-based reconstruction and records numerical validation. It includes a direct implementation of the finite formula and an accelerated evaluation for drawing the dense 10,000-pair curve.
