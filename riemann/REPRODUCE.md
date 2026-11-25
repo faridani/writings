@@ -8,7 +8,7 @@ python riemann/generate_figures.py
 ```
 
 The generator uses the bundled zero table, so rebuilding does not require
-network access after installing the dependencies. It creates all four
+network access after installing the dependencies. It creates all five
 PNGs in `riemann/assets/` and refreshes `riemann/validation.json`. There are
 no precomputed curve caches in the repository. The supplied dependency
 versions were used to generate the committed figures.
@@ -21,6 +21,8 @@ python riemann/generate_figures.py --output-dir output/riemann --threads 2
 
 ## What the figures show
 
+- `prime_count_0_to_100.png`: the introductory exact prime-counting
+  staircase, with $x$ from 0 to 100 and $y=\pi(x)$.
 - `prime_count_and_logarithmic_integral.png`: the exact prime-counting
   staircase and the smooth logarithmic integral, over $2\le x\le100$.
 - `zero_pair_progression.png`: the exact count and reconstructions from

@@ -67,6 +67,35 @@ def prime_staircase(ax: plt.Axes, primes: np.ndarray, linewidth: float = 2.0) ->
     ax.step(sx, sy, where="post", color=INK, lw=linewidth, zorder=3)
 
 
+def draw_prime_count(primes: np.ndarray, output: Path) -> None:
+    """Show the introductory exact count, including 0 and 1."""
+    x = np.arange(101)
+    counts = np.searchsorted(primes, x, side="right")
+    fig, ax = plt.subplots(figsize=(11.4, 6.5), dpi=190)
+    fig.subplots_adjust(left=0.10, right=0.96, bottom=0.20, top=0.79)
+    fig.text(0.10, 0.94, "Counting primes from 0 to 100",
+             fontsize=23, weight="bold")
+    fig.text(0.10, 0.885, "Each prime increases the running total by one",
+             fontsize=13, color=MUTED)
+    ax.step(x, counts, where="post", color=INK, lw=2.2, zorder=3)
+    ax.set(xlim=(0, 100), ylim=(0, 27))
+    ax.set_xlabel(r"Number $x$", labelpad=10)
+    ax.set_ylabel(r"Primes so far, $\pi(x)$", labelpad=10)
+    ax.set_xticks(np.arange(0, 101, 10))
+    ax.set_yticks(np.arange(0, 26, 5))
+    decorate(ax)
+    ax.scatter([10, 100], [4, 25], color=INK, s=30, zorder=4, clip_on=False)
+    ax.annotate(r"$\pi(10)=4$", (10, 4), xytext=(8, -24),
+                textcoords="offset points", fontsize=11, color=MUTED)
+    ax.annotate(r"$\pi(100)=25$", (100, 25), xytext=(-10, 12),
+                textcoords="offset points", ha="right", fontsize=11, color=INK)
+    fig.text(0.10, 0.09,
+             "The count is zero before 2. Each step marks a prime; by 100, there are 25 primes.",
+             fontsize=10.8, color=MUTED)
+    fig.savefig(output, dpi=190)
+    plt.close(fig)
+
+
 def draw_baseline(primes: np.ndarray, output: Path) -> None:
     x = np.linspace(*DOMAIN, 4000)
     fig, ax = plt.subplots(figsize=(11.4, 6.5), dpi=190)
@@ -297,6 +326,7 @@ def main() -> None:
         * np.sum(1 / np.sqrt(0.25 + (heights - TABLE_ERROR_BOUND) ** 2))
     )
     assert y_large is not None
+    draw_prime_count(primes, args.output_dir / "prime_count_0_to_100.png")
     draw_baseline(primes, args.output_dir / "prime_count_and_logarithmic_integral.png")
     draw_progression(zoom_grid, curves, primes, args.output_dir / "zero_pair_progression.png")
     draw_reconstruction(x_large, y_large, primes,

@@ -61,6 +61,12 @@ print([n for n in range(2, 30) if is_prime(n)])
 
 Every line has a mathematical reason. The first condition handles numbers outside the definition. The loop implements the square-root argument. Finding one divisor is enough to reject a candidate.
 
+Running the test for each integer from 0 through 100 gives a list of primes. We can then keep a running count, written $\pi(x)$: the number of primes less than or equal to $x$.
+
+![A staircase showing the number of primes less than or equal to each number x from 0 to 100. The count starts at 0 and reaches 25 at x equals 100.](riemann/assets/prime_count_0_to_100.png)
+
+*The horizontal axis runs from 0 to 100. The vertical axis is the number of primes found so far, $\pi(x)$. The count rises by one at each prime and stays flat between primes. For example, $\pi(10)=4$ and $\pi(100)=25$.*
+
 ## 2. How we find primes today
 
 “Find primes” hides several different tasks:
