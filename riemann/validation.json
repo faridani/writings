@@ -1,0 +1,117 @@
+{
+  "domain": [
+    2.0,
+    100.0
+  ],
+  "zero_pair_counts": [
+    0,
+    10,
+    50,
+    200,
+    1000,
+    10000
+  ],
+  "zero_table": {
+    "file": "data/odlyzko_zeros_10000.txt",
+    "sha256": "c11ba16e5e94800508d78a01fcf6363c2d41d8e86c40a69cf8939ff3083f6696",
+    "source": "https://www-users.cse.umn.edu/~odlyzko/zeta_tables/zeros1",
+    "source_stated_absolute_height_error": 3e-09,
+    "count": 10000,
+    "first_height": 14.134725142,
+    "last_height": 9877.782654004,
+    "conservative_height_error_propagation_bound_on_domain": 3.313216070631561e-07
+  },
+  "fixed_mobius_cutoff": 6,
+  "overview_plot_points": 121297,
+  "progression_plot_points_per_panel": 20001,
+  "direct_ei_check": {
+    "sample_points": 160,
+    "sample_description": "98 half-integers, 48 seeded log-uniform points, 12 at/near four primes, and two endpoints",
+    "acceptance_tolerance": 1e-08,
+    "max_absolute_discrepancy_by_zero_pairs": {
+      "0": 5.329070518200751e-15,
+      "10": 3.197442310920451e-14,
+      "50": 4.263256414560601e-14,
+      "200": 8.881784197001252e-14,
+      "1000": 2.042810365310288e-13,
+      "10000": 2.469136006766348e-12
+    },
+    "max_absolute_discrepancy": 2.469136006766348e-12
+  },
+  "errors_against_exact_prime_count": {
+    "sample_points": 98,
+    "sample_description": "x=2.5, 3.5, ..., 99.5; these avoid the jumps",
+    "by_zero_pairs": {
+      "0": {
+        "mean_absolute_error": 0.3254601026090531,
+        "maximum_absolute_error": 0.9769937158014947
+      },
+      "10": {
+        "mean_absolute_error": 0.18756431103303414,
+        "maximum_absolute_error": 0.6153640883201952
+      },
+      "50": {
+        "mean_absolute_error": 0.09009621568079879,
+        "maximum_absolute_error": 0.3599671777277109
+      },
+      "200": {
+        "mean_absolute_error": 0.03320552045871682,
+        "maximum_absolute_error": 0.134488797468034
+      },
+      "1000": {
+        "mean_absolute_error": 0.009427618513011176,
+        "maximum_absolute_error": 0.03287185924217795
+      },
+      "10000": {
+        "mean_absolute_error": 0.0014969159235754793,
+        "maximum_absolute_error": 0.006709747205857042
+      }
+    }
+  },
+  "chebyshev_final_128_coefficient_maxima": {
+    "0": {},
+    "10": {
+      "1": 8.881784197001252e-16,
+      "2": 2.220446049250313e-16,
+      "3": 1.5920484664090643e-16,
+      "5": 1.8304790832953942e-16,
+      "6": 2.7775741109145683e-16
+    },
+    "50": {
+      "1": 8.881784197001252e-16,
+      "2": 2.396086801192965e-16,
+      "3": 1.3617579286417936e-16,
+      "5": 2.207435623180487e-16,
+      "6": 2.8247432244975966e-16
+    },
+    "200": {
+      "1": 8.881784197001252e-16,
+      "2": 2.463307335887066e-16,
+      "3": 2.220446049250313e-16,
+      "5": 2.246466901389965e-16,
+      "6": 3.701466216865512e-16
+    },
+    "1000": {
+      "1": 8.881784197001252e-16,
+      "2": 2.463307335887066e-16,
+      "3": 2.220446049250313e-16,
+      "5": 2.47198095326695e-16,
+      "6": 3.5691935518222806e-16
+    },
+    "10000": {
+      "1": 8.881784197001252e-16,
+      "2": 2.463307335887066e-16,
+      "3": 2.220446049250313e-16,
+      "5": 2.47198095326695e-16,
+      "6": 3.5691935518222806e-16
+    }
+  },
+  "software": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "matplotlib": "3.10.8",
+    "finufft": "2.5.1"
+  },
+  "validation_scope": "Numerical checks compare the accelerated evaluator with the same finite formula evaluated directly. They do not certify a uniform truncation bound, prove the completeness of the zero table, or prove RH. Prime-count errors are sampled away from jumps; finite sums retain ringing near primes."
+}
