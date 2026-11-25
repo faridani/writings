@@ -84,6 +84,10 @@ These tasks are related, but a fast solution to one does not automatically solve
 
 If we want every prime up to a moderate limit, we can cross out composites together. Start with the integers from 2 to the limit. Keep 2 and cross out its larger multiples. Keep the next remaining number, 3, and cross out its multiples. Continue.
 
+![An animated sieve of Eratosthenes on a 10 by 10 grid of the numbers 1 through 100. One is circled in gray and set aside. Each prime is circled in green, and its multiples are crossed out in red one at a time. An amber highlight marks the current number, including multiples already crossed out.](riemann/assets/sieve_of_eratosthenes_1_to_100.gif)
+
+*Follow the animation one number at a time: 1 is circled in gray because it is not prime. Then 2 is circled in green and 4, 6, 8, … are crossed out; 3 follows with 6, 9, 12, …, including numbers already crossed out. Each later prime gets the same treatment. This demonstration deliberately starts at $2p$ on every pass so the repeated multiples remain visible. At the end, the 25 primes are circled and the 74 composite numbers are crossed out.*
+
 This is the sieve of Eratosthenes. When processing a prime $p$, we can begin at $p^2$: smaller multiples already have a smaller prime factor and have been crossed out.
 
 ~~~python
@@ -534,6 +538,7 @@ From the repository root, with Python and a suitable environment:
 ~~~bash
 python -m pip install -r riemann/requirements.txt
 python riemann/generate_figures.py
+python riemann/generate_sieve_animation.py
 ~~~
 
 The code keeps the sieve separate from the zero-based reconstruction and records numerical validation. It includes a direct implementation of the finite formula and an accelerated evaluation for drawing the dense 10,000-pair curve.

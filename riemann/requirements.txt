@@ -1,5 +1,6 @@
-# Versions used to generate the committed figures (Python 3.12).
+# Versions used to generate the committed figures and animation (Python 3.12).
 numpy==2.3.5
 scipy==1.17.0
 matplotlib==3.10.8
 finufft==2.5.1
+Pillow==13.0.0

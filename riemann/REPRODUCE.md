@@ -1,4 +1,4 @@
-# Reproduce the Riemann figures
+# Reproduce the Riemann figures and sieve animation
 
 From the repository root, using Python 3.12 or newer:
 
@@ -32,6 +32,26 @@ python riemann/generate_figures.py --output-dir output/riemann --threads 2
   with an overview, a close-up, and a magnified jump at the prime 29.
 - `zeta_zeros.png`: the first few trivial zeros and the first ten
   conjugate pairs of nontrivial zeros in the complex plane.
+
+## Animated sieve
+
+Rebuild the 10 by 10 sieve animation separately:
+
+```bash
+python riemann/generate_sieve_animation.py
+```
+
+The script writes `assets/sieve_of_eratosthenes_1_to_100.gif`. It first
+circles 1 in gray and labels it as not prime, then circles each prime in
+green and visits its multiples one at a time, starting at twice the prime.
+An amber highlight and a status message distinguish a new cross from a
+number that was already crossed out. Repeated visits are intentional: the
+animation shows every multiple, while the article's optimized sieve starts
+at the square of each prime to avoid redundant work.
+
+The final grid contains 25 circled primes, 74 crossed composite numbers,
+and 1 marked separately. The GIF pauses at the finished grid and loops.
+The generator needs Pillow and uses Matplotlib's bundled DejaVu fonts.
 
 ## Formula and conventions
 
