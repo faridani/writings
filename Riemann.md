@@ -155,11 +155,11 @@ These examples connect prime-based mathematics to private communication, efficie
 
 Define
 
-$$
-\pi(x)=\#\{p\le x:\ p\text{ is prime}\}.
-$$
+```math
+\pi(x)=\operatorname{card}\left\lbrace p\le x : p\text{ is prime}\right\rbrace.
+```
 
-The symbol $\pi(x)$ here means “prime count,” not the circle constant. For example, $\pi(10)=4$ because the primes up to 10 are 2, 3, 5, and 7. Also, $\pi(100)=25$.
+Here $\operatorname{card}$ means the number of elements in the set. The symbol $\pi(x)$ means “prime count,” not the circle constant. For example, $\pi(10)=4$ because the primes up to 10 are 2, 3, 5, and 7. Also, $\pi(100)=25$.
 
 Plotting $\pi(x)$ gives a staircase. It jumps by one at every prime and stays flat between primes. The individual steps are irregular, but the broad trend is remarkably regular.
 
