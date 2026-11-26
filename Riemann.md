@@ -1,4 +1,4 @@
-# Riemann, from scratch: rebuilding the primes
+# Understanding Riemann - Rebuilding the primes from scratch 
 
 A **prime number** is a whole number greater than 1 whose only positive divisors are 1 and itself. The first few are
 
@@ -8,13 +8,7 @@ $$
 
 Seven is prime because it cannot be divided evenly by any whole number between 2 and 6. Twelve is composite because, for example, $12=3\times4$. One is neither prime nor composite.
 
-That definition seems far removed from complex numbers, waves, or a famous mathematical hypothesis. I wanted to understand how the pieces connect well enough to build something: a program that reconstructs the distribution of primes using the zeros of the Riemann zeta function.
-
-The inspiration is a sentence Richard Feynman left on his blackboard:
-
-> “What I cannot create, I do not understand.”[^feynman]
-
-Here, “from scratch” means making the chain of ideas visible. We will write a small prime finder, explain why primes are useful, derive the bridge to the zeta function, and watch the prime-counting staircase emerge as we add more zero pairs. The numerical work uses established libraries for special functions; rebuilding all of numerical analysis would be a different project.
+I wanted to understand how the pieces connect well enough to build something: a program that reconstructs the distribution of primes from Reimann's notes. The inspiration is a sentence Richard Feynman left on his blackboard:“What I cannot create, I do not understand.”[^feynman]. In the title here, “from scratch” means making the chain of ideas visible. We will write a small prime finder, explain why primes are useful, derive the bridge to the zeta function, and watch the prime-counting staircase emerge as we add more zero pairs (do not be alarmed, we will discuss all of that in details). 
 
 The animations develop the same chain visually. Follow the [factorizations](#1-the-building-blocks-of-multiplication), [sieve](#many-small-primes-the-sieve), [complex rotations](#6-why-complex-numbers-enter), and [zero-by-zero reconstruction](#10-add-10-then-50-then-10000-zero-pairs). Each animation loops, with pauses at its key steps.
 
