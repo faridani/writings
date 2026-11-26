@@ -12,7 +12,7 @@ I wanted to understand how the pieces connect well enough to build something: a 
 
 The animations develop the same chain visually. Follow the [factorizations](#1-the-building-blocks-of-multiplication), [sieve](#many-small-primes-the-sieve), [complex rotations](#6-why-complex-numbers-enter), and [zero-by-zero reconstruction](#10-add-10-then-50-then-10000-zero-pairs). Each animation loops, with pauses at its key steps.
 
-> **A note on the date — November 24, 2026.** This essay uses the traditional name *Riemann hypothesis*. On November 20, Levent Alpöge released a formal proof in Lean. The Lean FRO and Mathlib Initiative subsequently certified the RH statement and proof, and Andrew Sutherland's MIT verification record documents independent builds and proof checks. The verified statements also cover GRH for Dirichlet $L$-functions. Work to explain and simplify the argument continues. This essay develops the statement and a numerical experiment; it does not reproduce or independently audit that formal proof.[^lean][^verification][^announcement]
+This essay uses the traditional name *Riemann hypothesis*. There has recently been claims of a proof for the Reimann hypothesis (commonly known as RH). If these claims turn out to be in fact correct, the term Reimann Hypothesis need to be changed. 
 
 ### A small Lean companion
 
