@@ -297,39 +297,163 @@ $$
 \zeta(s)=\sum_{n=1}^{\infty}\frac{1}{n^s}.
 $$
 
-This series converges when the real part of $s$ is greater than 1. For a concrete real input,
+This series converges when the real part of $s$ is greater than 1. For the examples below, we can first think of $s$ as a real number greater than 1. A concrete choice is
 
 $$
 \zeta(2)=1+\frac{1}{2^2}+\frac{1}{3^2}+\frac{1}{4^2}+\cdots.
 $$
 
-Now take one prime, say 2. The geometric-series identity gives
+How could a sum over **all positive integers** become a product involving **only primes**? We need two ingredients: the geometric series, which gives us every power of one prime, and unique factorization, which tells us what happens when we multiply those series.
+
+### First, derive the geometric series
+
+A geometric series starts with 1 and repeatedly multiplies by the same number $r$, called its ratio. Begin with a finite sum of $N+1$ terms, so that every algebraic step involves only finitely many numbers:
+
+$$
+S_N=1+r+r^2+\cdots+r^N.
+$$
+
+Multiply the entire sum by $r$:
+
+$$
+rS_N=r+r^2+r^3+\cdots+r^{N+1}.
+$$
+
+Subtract the second equation from the first. The terms $r,r^2,\ldots,r^N$ appear in both sums and cancel. Only the first sum's initial 1 and the second sum's final $r^{N+1}$ remain:
+
+$$
+S_N-rS_N=1-r^{N+1}.
+$$
+
+Factor out $S_N$ and divide by $1-r$, assuming $r\ne1$:
+
+$$
+(1-r)S_N=1-r^{N+1},
+\qquad
+S_N=\frac{1-r^{N+1}}{1-r}.
+$$
+
+Now let $N$ grow. If $|r|<1$, successive powers of $r$ become arbitrarily small: $r^{N+1}\to0$. The finite sums therefore approach
+
+$$
+\sum_{k=0}^{\infty}r^k
+=1+r+r^2+r^3+\cdots
+=\frac{1}{1-r},
+\qquad |r|<1.
+$$
+
+The condition $|r|<1$ is what lets us discard the remaining term in the limit. The finite identity alone does not justify an infinite sum for every $r$.
+
+### Give one prime its own series
+
+Choose the prime 2 and set $r=2^{-s}=1/2^s$. The exponent rule tells us exactly what each term becomes:
+
+$$
+r^k=(2^{-s})^k=2^{-ks}=\frac{1}{(2^k)^s}.
+$$
+
+Substituting this ratio into the identity we just proved gives
 
 $$
 \frac{1}{1-2^{-s}}=1+2^{-s}+2^{-2s}+2^{-3s}+\cdots.
 $$
 
-Do the same for 3, 5, 7, and every other prime, and multiply the expressions. Selecting one term from each factor amounts to selecting a power of each prime. For instance, selecting $2^{-2s}$, $3^{-s}$, and $5^{-s}$ produces
+Writing out the powers of 2 makes the meaning easier to see:
+
+$$
+\frac{1}{1-2^{-s}}
+=1+\frac{1}{2^s}+\frac{1}{4^s}+\frac{1}{8^s}+\frac{1}{16^s}+\cdots.
+$$
+
+This factor contributes the terms associated with $1,2,4,8,16,\ldots$. For example, at $s=2$ the ratio is $1/4$, so
+
+$$
+1+\frac14+\frac1{16}+\frac1{64}+\cdots
+=\frac{1}{1-1/4}=\frac43.
+$$
+
+The same construction works for every prime $p$: its factor lists $1,p,p^2,p^3,\ldots$, with each integer raised to the power $-s$. If $s$ is complex, $|p^{-s}|=p^{-\mathrm{Re}(s)}$, so an individual prime's geometric series converges whenever $\mathrm{Re}(s)>0$. Combining **all** the primes will require the stronger condition $\mathrm{Re}(s)>1$.
+
+### Multiply two prime factors first
+
+For the primes 2 and 3, the product is
+
+$$
+\left(1+2^{-s}+2^{-2s}+\cdots\right)
+\left(1+3^{-s}+3^{-2s}+\cdots\right).
+$$
+
+Expanding a product means choosing one term from each bracket and adding all the resulting products. Choosing exponents $a$ and $b$ gives
+
+$$
+2^{-as}3^{-bs}=(2^a3^b)^{-s}.
+$$
+
+Here are a few choices of prime powers in the denominators. Each cell shows the integer $n$ whose term $1/n^s$ appears:
+
+| Power of 2 chosen | Choose $1=3^0$ | Choose $3=3^1$ | Choose $9=3^2$ |
+|---|---:|---:|---:|
+| $1=2^0$ | 1 | 3 | 9 |
+| $2=2^1$ | 2 | 6 | 18 |
+| $4=2^2$ | 4 | 12 | 36 |
+
+For instance, choosing $2^{-2s}$ and $3^{-s}$ produces $12^{-s}$ because $2^2\cdot3=12$. The two factors generate every integer made only from 2s and 3s. They cannot yet generate 5, 7, or 10.
+
+Now include the factor for 5. Selecting $2^{-2s}$, $3^{-s}$, and $5^{-s}$ produces
 
 $$
 (2^2\cdot3\cdot5)^{-s}=60^{-s}.
 $$
 
-Unique factorization tells us exactly why every positive integer appears once. With the convergence condition $\mathrm{Re}(s)>1$ in place, this gives Euler's product:
+When further prime factors are included, choose their constant term 1 to keep this same contribution $60^{-s}$.
+
+### Why every positive integer appears exactly once
+
+Start with finitely many prime factors, then include more primes. Every positive integer greater than 1 has a factorization into finitely many primes, so its term appears as soon as all those primes are included. Unique factorization guarantees that there is exactly one choice of exponents producing that integer. The integer 1 appears by choosing the constant term from every factor.
+
+We also need to justify taking the limit. Once the product includes every prime at most $P$, it includes the term for every integer $n\le P$, along with many larger integers. Every missing term therefore has $n>P$. The sum of the absolute values of all missing terms is at most
+
+$$
+\sum_{n>P}\frac{1}{n^{\mathrm{Re}(s)}},
+$$
+
+which tends to zero when $\mathrm{Re}(s)>1$. This absolute convergence is what makes the infinite regrouping valid. We obtain **Euler's product**:
 
 $$
 \boxed{\displaystyle
-\zeta(s)=\prod_{p\ \mathrm{prime}}\frac{1}{1-p^{-s}}.
+\zeta(s)=\sum_{n=1}^{\infty}\frac{1}{n^s}
+=\prod_{p\ \mathrm{prime}}\frac{1}{1-p^{-s}},
+\qquad \mathrm{Re}(s)>1.
 }
 $$
 
-The same function can be assembled from all integers or from just the primes. This identity is the bridge we need.[^zeta]
+The symbol $\prod$ means to multiply, just as $\sum$ means to add. Each prime contributes one geometric-series factor; multiplying the factors assembles every integer's term exactly once. That is why the two expressions describe the same function.[^zeta]
 
 ![Successive prime factors in the Euler product at s equals 2 reveal integers made from those primes and bring the product closer to zeta of 2.](riemann/assets/euler_product.gif)
 
 *Each added prime unlocks integers whose prime factors are now available. The grid displays integers up to 60, while each Euler factor includes every power of its prime. The numerical product approaches ζ(2) = π²/6 as more primes are included.*
 
-There is another useful detail hidden in the product. For real $s>1$, expanding its logarithm gives
+### Where the prime-power weights come from
+
+There is one more step behind the formula at the end of this section. For **real $s>1$**, take the natural logarithm of the Euler product. A logarithm turns multiplication into addition, and the reciprocal supplies a minus sign:
+
+$$
+\log\zeta(s)
+=-\sum_p\log(1-p^{-s}).
+$$
+
+To expand each term, return to the geometric series. For $0\le u<1$, integrate it from 0 to $u$:
+
+$$
+-\log(1-u)
+=\int_0^u\frac{1}{1-t}\,dt
+=u+\frac{u^2}{2}+\frac{u^3}{3}+\cdots
+=\sum_{k=1}^{\infty}\frac{u^k}{k}.
+$$
+
+Term-by-term integration is valid because the geometric series converges uniformly on the fixed interval $[0,u]$, with $u<1$. The denominator $k$ comes from integrating $t^{k-1}$: its integral from 0 to $u$ is $u^k/k$.[^log-series]
+
+Set $u=p^{-s}$ for each prime and substitute into the preceding logarithm formula:
 
 $$
 \log\zeta(s)=
@@ -337,7 +461,7 @@ $$
 \qquad s>1.
 $$
 
-Primes appear together with their squares, cubes, and higher powers, weighted by $1/k$. Those weights will return when we reconstruct the prime count.
+For a fixed prime, the terms are $p^{-s}+p^{-2s}/2+p^{-3s}/3+\cdots$. Thus a prime gets weight 1, its square gets weight $1/2$, its cube gets weight $1/3$, and so on. These are the prime-power weights that will return when we reconstruct the prime count.
 
 **In Lean: the actual infinite Euler product.** This uses Mathlib's proved theorem, including the necessary convergence hypothesis `1 < s.re`. `Nat.Primes` is the type of natural numbers equipped with a proof that they are prime, and `∏'` denotes the infinite product.[^lean-zeta]
 
@@ -930,6 +1054,7 @@ For example, Lean can report the assumptions behind the general sieve theorem:
 [^pnt]: NIST Digital Library of Mathematical Functions, [Section 27.12: Asymptotic Formulas—Primes](https://dlmf.nist.gov/27.12), especially Equation 27.12.7 for the explicit RH-equivalent error bound.
 [^li]: NIST Digital Library of Mathematical Functions, [Section 6.2: Exponential and Logarithmic Integrals](https://dlmf.nist.gov/6.2), especially Equation 6.2.8.
 [^zeta]: NIST Digital Library of Mathematical Functions, [Section 25.2: Definition and Expansions](https://dlmf.nist.gov/25.2), for the Dirichlet series, continuation, alternating representation, and Euler product.
+[^log-series]: NIST Digital Library of Mathematical Functions, [Section 4.6: Power Series](https://dlmf.nist.gov/4.6), equation 4.6.1 with $z=-u$, for the logarithm expansion. The derivation in section 5 obtains its coefficients by integrating the geometric series.
 [^zeros]: NIST Digital Library of Mathematical Functions, [Section 25.10: Zeros](https://dlmf.nist.gov/25.10).
 [^odlyzko]: Andrew Odlyzko, [Tables of zeros of the Riemann zeta function](https://www-users.cse.umn.edu/~odlyzko/zeta_tables/), specifically the [first 100,000 zero heights](https://www-users.cse.umn.edu/~odlyzko/zeta_tables/zeros1), of which this experiment uses the first 10,000.
 [^explicit]: Bernhard Riemann, [“On the Number of Prime Numbers less than a Given Quantity”](https://www.maths.tcd.ie/pub/HistMath/People/Riemann/Zeta/EZeta.pdf), 1859, English translation by David R. Wilkins. For a modern statement of the formula with the constant, integral correction, and Möbius inversion, see [“Riemann's explicit formula, one zero at a time”](https://math.ucr.edu/home/baez/mathematical/riemann_explicit_formula/riemann_explicit_formula.html), hosted by John Baez at UC Riverside.
