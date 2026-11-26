@@ -348,6 +348,34 @@ input zero heights**, and **truncation error from omitting later zeros**.
 An aligned lower panel removes a center offset for display; it does not
 reduce any of those errors in the absolute reconstruction.
 
+## Lean companion
+
+The article also includes short Lean examples and links to a separate
+[Lean project](lean/README.md). Its files prove the prime-definition
+equivalence, a genuine sieve's soundness and completeness, exact counting
+and modular-arithmetic facts, and primality of all four large focal
+integers. Further examples use Mathlib's proved analytic results and
+state precisely which explicit-formula and error-bound claims have not
+been formalized by this companion.
+
+The Lean project is independent of the Python runtime. With Lean's
+toolchain manager installed, run from the repository root:
+
+```bash
+cd riemann/lean
+lake exe cache get
+lake build
+python verify.py
+```
+
+The project pins Lean 4.19.0 and an exact Mathlib revision. Its verifier
+builds every module, audits theorem dependencies for unfinished proofs or
+extra axioms, and compiles every Lean box extracted from `Riemann.md`.
+It also enforces the article's ten-line limit for each Lean block.
+Results and source hashes appear in [lean/validation.json](lean/validation.json).
+This formal companion does not certify the floating-point animations or
+import the separate formal proof of RH.
+
 ## Sources
 
 - [Riemann's 1859 paper, English translation](https://www.maths.tcd.ie/pub/HistMath/People/Riemann/Zeta/EZeta.pdf).

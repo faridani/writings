@@ -20,6 +20,26 @@ The animations develop the same chain visually. Follow the [factorizations](#1-t
 
 > **A note on the date — November 24, 2026.** This essay uses the traditional name *Riemann hypothesis*. On November 20, Levent Alpöge released a formal proof in Lean. The Lean FRO and Mathlib Initiative subsequently certified the RH statement and proof, and Andrew Sutherland's MIT verification record documents independent builds and proof checks. The verified statements also cover GRH for Dirichlet $L$-functions. Work to explain and simplify the argument continues. This essay develops the statement and a numerical experiment; it does not reproduce or independently audit that formal proof.[^lean][^verification][^announcement]
 
+### A small Lean companion
+
+The short Lean boxes below follow the same route as the essay. Complete files, imports, and longer proofs live in the [Lean companion folder](riemann/lean/README.md); no Lean box here exceeds ten lines. The examples use pinned versions of Lean and Mathlib so that the names and proofs can be reproduced.
+
+In Lean, `ℕ` means the natural numbers, `Prop` is the type of mathematical propositions, and `d ∣ p` means that `d` divides `p`. A `def` introduces a definition; an `example` or `theorem` supplies a proof of its stated proposition. The following readable definition is proved equivalent to Mathlib's `Nat.Prime`.[^lean-primes]
+
+~~~lean
+import Riemann
+open RiemannEssay
+open scoped BigOperators ComplexConjugate
+
+def primeByDivisors (p : ℕ) : Prop :=
+  2 ≤ p ∧ ∀ d : ℕ, d ∣ p → d = 1 ∨ d = p
+
+example (p : ℕ) : primeByDivisors p ↔ Nat.Prime p :=
+  Nat.prime_def.symm
+~~~
+
+The opening three lines load the companion and its notation; the later boxes assume that setup. `↔` states an equivalence, and `∀` means “for every.” The final line reuses a proved Mathlib theorem. [Primes.lean](riemann/lean/Riemann/Primes.lean) contains the complete definitions and elementary proofs.
+
 ## 1. The building blocks of multiplication
 
 Every integer greater than 1 can be written as a product of primes. Apart from rearranging the factors, that representation is unique. For example,
@@ -46,6 +66,17 @@ Dividing $N$ by any prime on the list leaves remainder 1. Therefore $N$ has a pr
 
 This is already a useful example of proof. We did not check a very long list and decide the pattern would probably continue. We gave an argument that defeats every proposed finite list.
 
+**In Lean: examples and an unlimited statement.** The first two proofs settle particular integers. The last works for every proposed bound. The linked file also includes existence and uniqueness of prime factorization, with uniqueness expressed as equality up to the order of the factors.
+
+~~~lean
+example : Nat.Prime 7 := by norm_num
+example : ¬ Nat.Prime 12 := by norm_num
+example (bound : ℕ) : ∃ p, bound ≤ p ∧ Nat.Prime p :=
+  Nat.exists_infinite_primes bound
+~~~
+
+`norm_num` constructs proofs of these arithmetic facts; `exact` or a direct theorem term can reuse an existing proof. See [the factorization and infinitude proofs](riemann/lean/Riemann/Primes.lean).
+
 ### A first prime test
 
 To test an integer $n$, we can try dividing it by smaller integers. We only need to reach $\sqrt n$. If $n=ab$ and both $a$ and $b$ were greater than $\sqrt n$, their product would exceed $n$.
@@ -66,6 +97,16 @@ print([n for n in range(2, 30) if is_prime(n)])
 ~~~
 
 Every line has a mathematical reason. The first condition handles numbers outside the definition. The loop implements the square-root argument. Finding one divisor is enough to reject a candidate.
+
+**In Lean: why stopping at the square root is enough.** `Nat.sqrt` is the integer square root, corresponding to Python's `isqrt`. This is a general equivalence, not a test of just one example:
+
+~~~lean
+example (n : ℕ) : Nat.Prime n ↔
+    2 ≤ n ∧ ∀ d : ℕ, 2 ≤ d → d ≤ Nat.sqrt n → ¬ d ∣ n :=
+  Nat.prime_def_le_sqrt
+~~~
+
+The [complete file](riemann/lean/Riemann/Primes.lean) also proves that 97 is prime and 91 is composite. This theorem justifies the mathematical stopping criterion; it is not a formal verification of the Python interpreter or of that specific Python function.
 
 ![Trial divisions compare 97 and 91. The calculation finds 7 times 13 equals 91, while 97 has no divisor from 2 through 9.](riemann/assets/trial_division.gif)
 
@@ -119,6 +160,19 @@ print(len(primes_up_to(100)))  # 25
 
 The exact black staircase in our later graphs comes from a separate implementation of this idea.
 
+**In Lean: the sieve really returns exactly the primes.** The implementation in [Sieve.lean](riemann/lean/Riemann/Sieve.lean) starts with the integers from 2 through the limit. A candidate still present when its turn arrives crosses out its proper multiples. The algorithm does not call `Nat.Prime` to decide what to retain; primality appears in the correctness proof.
+
+~~~lean
+example {N n : ℕ} :
+    n ∈ sieve N ↔ Nat.Prime n ∧ n ≤ N := mem_sieve
+#eval (sieve 100).sort (· ≤ ·)
+#eval (sieve 100).card
+~~~
+
+The equivalence proves both **soundness** (every returned number is prime and within the bound) and **completeness** (every prime within the bound is returned), for arbitrary `N`, including 0 and 1. The final evaluation displays 25.
+
+The longer proof maintains three facts: later stages only remove candidates; a prime within the bound survives every stage; and after processing a prime, none of its proper multiples remain. Every composite has a smaller prime divisor, so it must eventually be removed. The file also proves that each surviving candidate selected for crossing out multiples is prime. This pedagogical version processes candidates through the full limit; the square-root stopping rule and the array implementation above are separate optimizations.
+
 ### One very large prime: generate candidates and test
 
 A cryptographic library does not normally list every smaller prime before producing a large one. It generates a candidate of the required size, rejects easy failures, and performs stronger primality tests. If the candidate fails, it tries again.
@@ -155,6 +209,15 @@ Multiplying known factors is straightforward. Recovering the factors from a larg
 
 This is why efficient prime generation is compatible with RSA: the legitimate user chooses the factors first. An attacker is given their product. Factoring the modulus is sufficient to break RSA. Whether every efficient way to reverse RSA's public operation would also give an efficient factoring method is a separate question.[^rsa-problem]
 
+**In Lean: check the toy RSA arithmetic.** The linked file verifies the small primes, modulus, exponent relationship, and these exact encryption and decryption identities:
+
+~~~lean
+example : (65 : ℕ) ^ 17 % 3233 = 2790 := toy_rsa_encrypt
+example : (2790 : ℕ) ^ 2753 % 3233 = 65 := toy_rsa_decrypt
+~~~
+
+Here `%` is the remainder operation. These are arithmetic proofs for the [toy example](riemann/lean/Riemann/Applications.lean), not security proofs for RSA or a production cryptographic implementation.
+
 ### A prime can also define the arithmetic
 
 Working *modulo* $p$ means keeping remainders after division by $p$. Modulo 7, for example,
@@ -170,6 +233,16 @@ The second equation says that 5 behaves as the multiplicative inverse of 3. When
 *Arithmetic modulo 7 wraps around seven remainders. Four steps from 5 end at 2; three groups of five end at 1. The second calculation makes 5 the multiplicative inverse of 3.*
 
 X25519, an elliptic-curve method for agreeing on a shared secret, uses the public prime $2^{255}-19$. Its secret values participate in curve operations; the prime itself is published in the specification. This is a different use of primes from hiding RSA's factors.[^x25519]
+
+**In Lean: a prime modulus supplies a field.** `Fact p.Prime` makes the primality assumption available to Lean's typeclass system. The second example proves that every nonzero residue has an inverse:
+
+~~~lean
+example (p : ℕ) [Fact p.Prime] : Field (ZMod p) := inferInstance
+example (p : ℕ) [Fact p.Prime] (a : ZMod p) (ha : a ≠ 0) :
+    a * a⁻¹ = 1 := mul_inv_cancel₀ ha
+~~~
+
+[Applications.lean](riemann/lean/Riemann/Applications.lean) also checks the modulo-seven clock and exhibits nonzero residues whose product is zero modulo 256. That last example explains why ordinary arithmetic modulo 256 differs from the field with 256 elements used in coding theory.
 
 ### Data lookup and recovering damaged messages
 
@@ -211,6 +284,18 @@ The principal value, written PV, balances the two sides of the singularity at $t
 *The horizontal axis is the numerical cutoff $x$. The vertical axis counts primes up to that cutoff. The smooth curve describes an average trend; it does not reproduce each step.*
 
 The next question is more demanding than identifying that trend: **how large can the discrepancy between the staircase and its smooth approximation become?**
+
+**In Lean: an exact staircase.** A `Finset` is a finite set. Filtering `range (n + 1)` by primality includes every prime at most `n`, and `.card` counts them:
+
+~~~lean
+def primeCountThrough (n : ℕ) : ℕ :=
+  ((Finset.range (n + 1)).filter Nat.Prime).card
+
+example : primeCountThrough 100 = 25 := primeCount_hundred
+#eval primeCountThrough 100
+~~~
+
+This is a mathematical specification of the count. The separate sieve theorem proves the elimination algorithm correct. [Counting.lean](riemann/lean/Riemann/Counting.lean) connects this count to Mathlib's `Nat.primeCounting` and proves the general step law: the count increases by one exactly when the next integer is prime.
 
 ## 5. A sum over integers becomes a product over primes
 
@@ -261,6 +346,16 @@ $$
 $$
 
 Primes appear together with their squares, cubes, and higher powers, weighted by $1/k$. Those weights will return when we reconstruct the prime count.
+
+**In Lean: the actual infinite Euler product.** This uses Mathlib's proved theorem, including the necessary convergence hypothesis `1 < s.re`. `Nat.Primes` is the type of natural numbers equipped with a proof that they are prime, and `∏'` denotes the infinite product.[^lean-zeta]
+
+~~~lean
+example (s : ℂ) (hs : 1 < s.re) :
+    (∏' p : Nat.Primes, (1 - (p : ℂ) ^ (-s))⁻¹) = riemannZeta s :=
+  riemannZeta_eulerProduct_tprod hs
+~~~
+
+The [complete analytic companion](riemann/lean/Riemann/Analysis.lean) also proves agreement with the Dirichlet series on this convergence region by applying the corresponding Mathlib theorem.
 
 ## 6. Why complex numbers enter
 
@@ -319,6 +414,17 @@ provides a continuation throughout the strip $0<\mathrm{Re}(s)<1$, where the den
 
 This is a crucial step in the story. The continuation lets us investigate a region that the original infinite sum could not reach.
 
+**In Lean: complex arithmetic and the continued function.** The same `riemannZeta` used in the preceding theorem is complex differentiable away from 1:
+
+~~~lean
+example : Complex.I * Complex.I = -1 := by simp
+example (s : ℂ) (hs : s ≠ 1) :
+    DifferentiableAt ℂ riemannZeta s :=
+  differentiableAt_riemannZeta hs
+~~~
+
+[Analysis.lean](riemann/lean/Riemann/Analysis.lean) includes the complex-coordinate definitions and the geometric-series example. The differentiability result refers to the continued zeta function; it does not make its original Dirichlet series converge in the critical strip.
+
 ## 7. What a zeta zero is
 
 A zero is a complex input $\rho$ satisfying
@@ -357,6 +463,20 @@ For each listed zero $\rho_n=1/2+i\gamma_n$, its complex conjugate $1/2-i\gamma_
 
 A symmetric arrangement by itself would not establish RH: points can be symmetric about a line while lying on either side of it. The assertion is that every nontrivial zero is actually on the line.
 
+**In Lean: state RH precisely, and prove the trivial zeros.** These are different tasks. The first declaration below is a proposition. The first `example` checks that it states the same proposition as Mathlib. The final example is an actual proof that every negative even integer is a zero:
+
+~~~lean
+def RHInLean : Prop :=
+  ∀ s : ℂ, riemannZeta s = 0 →
+    (¬ ∃ n : ℕ, s = -2 * (n + 1)) → s ≠ 1 → s.re = 1 / 2
+
+example : RHInLean ↔ RiemannHypothesis := Iff.rfl
+example (n : ℕ) : riemannZeta (-2 * (n + 1)) = 0 :=
+  riemannZeta_neg_two_mul_nat_add_one n
+~~~
+
+The condition `s ≠ 1` excludes the analytic pole: Lean functions are total, so Mathlib assigns a value there even though the ordinary analytic function has a pole. Neither defining `RHInLean` nor proving equivalence of two statements proves RH. This [educational companion](riemann/lean/Riemann/Analysis.lean) does not import or audit the separate formal proof discussed in the date note.
+
 ## 8. How a zero becomes a wave
 
 The connection becomes easier to see by expanding a term that occurs in explicit formulas. If $\rho=\beta+i\gamma$ and $x>1$, then
@@ -386,6 +506,19 @@ This also explains a limitation: the same finite set of zeros gives coarser spat
 *Two conjugate rotations have opposite imaginary parts, so their sum is real. Increasing the zero height makes the oscillation faster in log(x). This animation isolates a building block; the complete prime-counting formula also needs exponential integrals and prime-power corrections.*
 
 The analogy needs one qualification. The exact prime-counting reconstruction contains exponential-integral terms and prime-power corrections, not just a freely chosen sum of sine waves. The frequencies and weights come from the mathematics.
+
+**In Lean: conjugates combine into a real wave.** Pairing any complex number with its conjugate cancels the imaginary part and doubles the real part:
+
+~~~lean
+example (z : ℂ) : (z + conj z).im = 0 := by simp
+example (z : ℂ) : (z + conj z).re = 2 * z.re := by
+  simp [two_mul]
+example (γ x : ℝ) :
+    (logWave γ x + conj (logWave γ x)).re =
+      2 * Real.cos (γ * Real.log x) := logWave_pair_re γ x
+~~~
+
+The definition of `logWave` and its proofs are in [Analysis.lean](riemann/lean/Riemann/Analysis.lean). This verifies the oscillatory building block; it does not replace the exponential-integral weights in the full explicit formula.
 
 ## 9. The explicit formula: rebuilding the staircase
 
@@ -469,6 +602,18 @@ $$
 
 This half-step matters when we inspect the graphs closely.
 
+**In Lean: prime-power weights and Möbius correction.** The linked file enumerates prime powers with exact rational weights and proves that its finite search bounds include every contributing power. The calculation at 10 and the Möbius coefficients are checked exactly:
+
+~~~lean
+example : weightedPrimePowers 10 = 16 / 3 := weightedPrimePowers_ten
+example : ArithmeticFunction.moebius 2 = -1 := moebius_two
+example : ArithmeticFunction.moebius 4 = 0 := moebius_four
+example : ArithmeticFunction.moebius 6 = 1 := moebius_six
+#check RiemannEssay.divisor_moebius_inversion
+~~~
+
+[Reconstruction.lean](riemann/lean/Riemann/Reconstruction.lean) contains the complete finite computation, the concrete correction at 10, and an application of Mathlib's actual divisor-sum Möbius inversion theorem. Relating that arithmetic identity to the analytic zero sum requires further arguments. The full analytic explicit formula and the numerical evaluation of complex Ei are not formalized in this small companion.
+
 ## 10. Add 10, then 50, then 10,000 zero pairs
 
 For computation, replace the infinite zero sum by its first $K$ pairs. Call the resulting weighted count $\widehat J_K(x)$, and apply the same prime-power correction to obtain $\widehat\pi_K(x)$. The hats mark finite approximations: $\widehat J_0$ means the smooth calculation with no zero pairs, whereas $J_0$ in the exact formula means the midpoint convention.
@@ -501,6 +646,17 @@ We can measure the improvement instead of relying only on the picture. The follo
 
 These are measurements for this interval and these sample points. They are not universal error bounds, and increasing $K$ need not improve the approximation at every individual location. The [reproduction notes](riemann/REPRODUCE.md) explain the calculation and numerical checks.
 
+**In Lean: adding a pair is an exact finite-sum operation.** Here `term n` is supplied by the caller; its mathematical origin and numerical accuracy are separate obligations.
+
+~~~lean
+example (term : ℕ → ℂ) (K : ℕ) :
+    zeroPairSum term (K + 1) =
+      zeroPairSum term K + 2 * (term K).re :=
+  zeroPairSum_succ term K
+~~~
+
+The [definition and proof](riemann/lean/Riemann/Reconstruction.lean) use a sum over `Finset.range K`, which contains indices 0 through `K - 1`. The theorem proves the bookkeeping of adding a conjugate pair. It does not certify that decimal zero heights are exact zeros, that a chosen complex term is the explicit-formula term, or that the Python curve has a particular error.
+
 ## 11. What remains visible at 10,000 pairs
 
 Here are just the exact curve and the reconstruction using 10,000 pairs:
@@ -520,6 +676,17 @@ The overshoot and undershoot near that jump are a form of Gibbs ringing. A finit
 This is why the picture must be interpreted at a stated scale. A plot that looks exact when shown across 100 integers can reveal structure when magnified to a width of a few hundredths.
 
 The graph also illustrates a distinction worth preserving even after a proof of RH: a finite computation shows what happens for the inputs and zero data it uses. A theorem supplies a reason that covers infinitely many cases. Our Python experiment does not inspect every zero or verify the new formal proof.
+
+**In Lean: the midpoint and the limits of finite checks.** Given the left and right counts 9 and 10, exact rational arithmetic gives their halfway value. The second theorem constructs a simple predicate that holds through any given finite cutoff and fails afterward:
+
+~~~lean
+example : jumpMidpoint 9 10 = 19 / 2 := midpoint_at_twenty_nine
+example (B : ℕ) :
+    (∀ n ≤ B, n ≠ B + 1) ∧ ¬ (∀ n : ℕ, n ≠ B + 1) :=
+  finite_checks_do_not_force_everywhere B
+~~~
+
+That logical example explains why a finite computation alone is not an unrestricted proof; it makes no assertion about an unchecked zeta zero. See [the full proofs](riemann/lean/Riemann/Reconstruction.lean).
 
 ### The same 10,000 pairs near much larger primes
 
@@ -549,11 +716,27 @@ The marked point $(0,0)$ is the exact midpoint target in both panels. The ordina
 
 *Near 1,000,003, the added zeros produce visible curvature, but 10,000 pairs still blur the individual steps. The final midpoint error is about −0.703 primes. Open the [10,000-pair still figure](riemann/assets/large_prime_1m.png) to inspect the last stage.*
 
+**In Lean:** the focal integer is proved prime, independently of the plotted curve.
+
+~~~lean
+example : Nat.Prime 1000003 := prime_near_million
+~~~
+
+The [certificate proofs](riemann/lean/Riemann/LargePrimes.lean) use Lucas's primality criterion and exact modular arithmetic.
+
 #### Near one billion
 
 ![The zero-pair count increases from zero to 10000 near the prime 1000000007. The absolute error changes while the centered local reconstruction remains nearly straight.](riemann/assets/large_prime_1b.gif)
 
 *Near 1,000,000,007, the absolute estimate moves as more zeros are added, while its local shape changes very little across these 400 numbers. At 10,000 pairs, the midpoint error is about −14.838 primes. The [still figure](riemann/assets/large_prime_1b.png) keeps the actual error and the aligned shape visible together.*
+
+**In Lean:** the corresponding exact primality proof is:
+
+~~~lean
+example : Nat.Prime 1000000007 := prime_near_billion
+~~~
+
+See the [full integer certificate](riemann/lean/Riemann/LargePrimes.lean).
 
 #### Near one trillion
 
@@ -561,11 +744,27 @@ The marked point $(0,0)$ is the exact midpoint target in both panels. The ordina
 
 *Near 1,000,000,000,039, the final estimate is about 1,001.2 primes below the exact midpoint. A nearly straight local curve can describe the average rate of increase while missing both the accumulated count and the individual jumps. Open the [still figure](riemann/assets/large_prime_1t.png) for the final comparison.*
 
+**In Lean:** the trillion-scale focal prime is also checked exactly:
+
+~~~lean
+example : Nat.Prime 1000000000039 := prime_near_trillion
+~~~
+
+The [longer proof file](riemann/lean/Riemann/LargePrimes.lean) contains the supporting factorizations and modular-power proofs.
+
 #### Near 1,000 trillion
 
 ![The reconstruction near 1000000000000037 uses increasing zero-pair counts up to 10000. Large changes in the absolute estimate appear above a nearly unchanged, explicitly aligned local shape.](riemann/assets/large_prime_1000t.gif)
 
 *Near 1,000,000,000,000,037, the 10,000-pair estimate is about 1,872 primes above the midpoint. The lower curve remains almost straight throughout the animation because even the highest retained zero changes phase extremely slowly over this window. The [still figure](riemann/assets/large_prime_1000t.png) preserves the final stage.*
+
+**In Lean:** the largest focal prime has a proof too:
+
+~~~lean
+example : Nat.Prime 1000000000000037 := prime_near_quadrillion
+~~~
+
+[LargePrimes.lean](riemann/lean/Riemann/LargePrimes.lean) checks the recursive integer certificates with ordinary kernel-checked arithmetic. These theorems prove primality of the selected integers; they do not prove the plotted prime-count estimates or certify the decimal zeta-zero data.
 
 #### Why the steps do not sharpen here
 
@@ -583,6 +782,17 @@ These cycle lengths describe the oscillatory resolution of this finite sum; they
 Watch the upper panels as carefully as the lower ones: **adding more zeros need not improve the answer at this particular prime on every stage**. An intermediate estimate can land closer to the exact midpoint than a later one. Alignment in the lower panel also removes an error by construction; it does not remove that error from the mathematical estimate.
 
 The final column is a separate precision limit. It propagates the source table's stated uncertainty of $3\times10^{-9}$ per zero height through our finite formula, using a conservative worst-case bound rounded upward.[^odlyzko] It is neither the error from omitting later zeros nor an estimate of floating-point error. The large-scale evaluator checks its numerical calculations separately and computes small local changes directly, avoiding the loss of precision that can occur when subtracting two enormous totals. Its implementation and checks are described in the [reproduction notes](riemann/REPRODUCE.md#large-prime-windows).
+
+**In Lean: what the two graph panels preserve.** Subtracting the same reference from both curves preserves their difference. Subtracting each reconstruction's own center deliberately removes its center offset:
+
+~~~lean
+example (f exact reference : ℝ) :
+    (f - reference) - (exact - reference) = f - exact := by ring
+example (fx fp reference : ℝ) :
+    (fx - reference) - (fp - reference) = fx - fp := by ring
+~~~
+
+These [algebraic proofs](riemann/lean/Riemann/Reconstruction.lean) explain the display conventions without claiming that alignment improves the underlying estimate.
 
 ## 12. What RH says about the error
 
@@ -620,6 +830,17 @@ An illustrative calculation makes the scale concrete. At $x=10^{12}$, the right-
 
 The same global statement cannot be established by our very accurate small graph. The graph helps us see the mechanism; the theorem controls it beyond the plotted range.
 
+**In Lean: what an error bound guarantees.** A bound on the absolute error places the exact count inside an interval around its estimate:
+
+~~~lean
+example (count estimate bound : ℝ)
+    (h : |count - estimate| ≤ bound) :
+    estimate - bound ≤ count ∧ count ≤ estimate + bound :=
+  interval_from_error_bound count estimate bound h
+~~~
+
+[Analysis.lean](riemann/lean/Riemann/Analysis.lean) also defines the asymptotic statement using Lean's `Asymptotics.IsBigO` and the scale `Real.sqrt x * Real.log x`. Defining that proposition is not a proof that the prime count satisfies it. This companion proves the interval consequence of a supplied bound; it does not formalize the RH equivalence or derive the bound itself.
+
 ## 13. How does this help us as humans?
 
 The immediate mathematical value is a stronger guarantee about prime distribution. A proof turns results established under RH into unconditional theorems, provided RH was the assumption they actually required. That is useful in reasoning about prime counts, error terms, and the intervals in which primes must occur.
@@ -641,6 +862,16 @@ The recent proof also sharpens the Feynman theme. Establishing that an argument 
 For this essay, the goal is smaller and concrete: rebuild enough of the connection that the sentence “the zeros encode the primes” has an operational meaning. We can supply zero heights to a program, add the corresponding contributions, remove the prime-power terms, and watch the prime-counting steps appear.
 
 That leaves us with a useful habit: when a remarkable result appears, ask what we can construct from it, what we can verify, and what we can explain.
+
+**In Lean: turning a conditional result into a usable theorem.** Suppose a result has been proved assuming RH. A proof of RH can then supply the missing argument:
+
+~~~lean
+example (rh : RiemannHypothesis) (claim : Prop)
+    (conditional : RiemannHypothesis → claim) : claim :=
+  conditional rh
+~~~
+
+The type of `rh` makes the required input explicit. This tiny proof shows how an assumption is discharged; it does not manufacture an RH proof or establish a cryptographic speedup. The [complete file](riemann/lean/Riemann/Analysis.lean) keeps this example separate from the analytic statements.
 
 ## 14. Reproduce the experiment
 
@@ -664,9 +895,35 @@ Three implementation choices deserve explanation:
 
 Useful next experiments are to compare behavior at primes and prime powers, test how smoothing the zero cutoff changes the ringing, or increase the zero heights available to the large-prime experiment. The four large-scale windows now have their own evaluator and numerical checks; extending to a new scale or a wider window requires checking that numerical regime too. Each experiment asks a precise question that the code can help answer.
 
+### Reproduce the Lean companion
+
+Install Lean's toolchain manager using the [official instructions](https://leanprover-community.github.io/get_started.html), then run from the repository root:[^lean-project]
+
+~~~bash
+cd riemann/lean
+lake exe cache get
+lake build
+python verify.py
+~~~
+
+The project pins Lean 4.19.0 and the corresponding exact Mathlib revision. `verify.py` builds every module, compiles all the Lean boxes extracted from this article, and rejects a box longer than ten lines. Its proof audit follows theorem dependencies and permits only Lean's standard foundational axioms; unfinished proofs and additional computation axioms cause the check to fail. The [validation report](riemann/lean/validation.json) records the compiler version, source hashes, and results.
+
+For example, Lean can report the assumptions behind the general sieve theorem:
+
+~~~lean
+#check RiemannEssay.mem_sieve
+#print axioms RiemannEssay.mem_sieve
+~~~
+
+`#check` displays a declaration's type, `#eval` runs a computation, and `#print axioms` lists the axioms used by a proof, including its dependencies. None of those commands alone creates a proof. The [companion guide](riemann/lean/README.md) maps every section to its full file and explains exactly what is proved.[^lean-kernel]
+
 ## Sources and further reading
 
 [^feynman]: Caltech Magazine, [“Biology through the Eyes of a Physicist”](https://magazine.caltech.edu/post/biology-through-the-eyes-of-a-physicist), July 2021. Records the quotation found on Feynman's blackboard.
+[^lean-primes]: Mathlib, pinned release v4.19.0, [natural prime definitions and the square-root criterion](https://github.com/leanprover-community/mathlib4/blob/v4.19.0/Mathlib/Data/Nat/Prime/Defs.lean). The companion uses the exact revision recorded in its Lake manifest.
+[^lean-zeta]: Mathlib, pinned release v4.19.0, [Euler product for zeta](https://github.com/leanprover-community/mathlib4/blob/v4.19.0/Mathlib/NumberTheory/EulerProduct/DirichletLSeries.lean) and [Riemann zeta, continuation, trivial zeros, and the RH proposition](https://github.com/leanprover-community/mathlib4/blob/v4.19.0/Mathlib/NumberTheory/LSeries/RiemannZeta.lean).
+[^lean-project]: Lean community, [Lean projects](https://leanprover-community.github.io/install/project.html), for dependency setup, Mathlib caches, and builds.
+[^lean-kernel]: Lean reference manual, [Axioms](https://lean-lang.org/doc/reference/latest/Axioms/), for the standard axioms, unfinished proofs, and inspecting proof dependencies. The companion's audit checks its pinned compiler directly.
 [^lean]: Lean FRO and Mathlib Initiative, [“Lean verification of the Riemann Hypothesis”](https://leanprover-community.github.io/blog/posts/riemann-hypothesis/), November 21, 2026.
 [^verification]: Andrew Sutherland, MIT, [“Verification files for the Lean proof of the Riemann Hypothesis”](https://math.mit.edu/~drew/grh/), record consulted November 24, 2026. Includes the precise scope of the five verified statements.
 [^announcement]: Levent Alpöge, [announcement of the formal proof](https://alpo.ge/remark.pdf), November 20, 2026. The [community repository](https://github.com/leanprover-community/riemann-hypothesis) maintains the formalization.
