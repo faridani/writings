@@ -8,15 +8,13 @@ $$
 
 Seven is prime because it cannot be divided evenly by any whole number between 2 and 6. Twelve is composite because, for example, $12=3\times4$. One is neither prime nor composite.
 
-I wanted to understand how the pieces connect well enough to build something: a program that reconstructs the distribution of primes from Reimann's notes. The inspiration is a sentence Richard Feynman left on his blackboard:“What I cannot create, I do not understand.”[^feynman]. In the title here, “from scratch” means making the chain of ideas visible. We will write a small prime finder, explain why primes are useful, derive the bridge to the zeta function, and watch the prime-counting staircase emerge as we add more zero pairs (do not be alarmed, we will discuss all of that in details). 
-
-The animations develop the same chain visually. Follow the [factorizations](#1-the-building-blocks-of-multiplication), [sieve](#many-small-primes-the-sieve), [complex rotations](#6-why-complex-numbers-enter), and [zero-by-zero reconstruction](#10-add-10-then-50-then-10000-zero-pairs). Each animation loops, with pauses at its key steps.
+I wanted to understand how the pieces connect well enough to build something: a program that reconstructs the distribution of primes from Reimann's notes. The inspiration is a sentence Richard Feynman left on his blackboard:“What I cannot create, I do not understand.”[^feynman]. In the title here, “from scratch” means making the chain of ideas visible. We will write a small prime finder, explain why primes are useful, derive the bridge to the zeta function, and watch the prime-counting staircase emerge as we add more zero pairs (do not be alarmed, we will discuss all of that in details. And there are educational animations embedded in this document to help you understand). 
 
 This essay uses the traditional name *Riemann hypothesis*. There has recently been claims of a proof for the Reimann hypothesis (commonly known as RH). If these claims turn out to be in fact correct, the term Reimann Hypothesis need to be changed. 
 
-### A small Lean companion
+### The optional small Lean companion
 
-The short Lean boxes below follow the same route as the essay. Complete files, imports, and longer proofs live in the [Lean companion folder](riemann/lean/README.md); no Lean box here exceeds ten lines. The examples use pinned versions of Lean and Mathlib so that the names and proofs can be reproduced.
+Lean is the new language of mathematics, if a claim to a proof is expressed in Lean, then a machine can automatically validate the claim. The short Lean boxes below follow the same route as the essay. Complete files, imports, and longer proofs live in the [Lean companion folder](riemann/lean/README.md); no Lean box here exceeds ten lines. 
 
 In Lean, `ℕ` means the natural numbers, `Prop` is the type of mathematical propositions, and `d ∣ p` means that `d` divides `p`. A `def` introduces a definition; an `example` or `theorem` supplies a proof of its stated proposition. The following readable definition is proved equivalent to Mathlib's `Nat.Prime`.[^lean-primes]
 
