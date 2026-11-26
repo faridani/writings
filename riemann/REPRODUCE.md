@@ -8,16 +8,20 @@ python riemann/generate_figures.py
 python riemann/generate_animations.py
 ```
 
-The generator uses the bundled zero table, so rebuilding does not require
-network access after installing the dependencies. It creates all five
-PNGs in `riemann/assets/` and refreshes `riemann/validation.json`. There are
-no precomputed curve caches in the repository. The supplied dependency
-versions were used to generate the committed figures.
+The generators use bundled data, so rebuilding does not require network
+access after installing the dependencies. The figure command creates the
+five original PNGs in `riemann/assets/` and refreshes
+`riemann/validation.json`. There are no precomputed curve caches in the
+repository. The supplied dependency versions were used to generate the
+committed figures.
 
-The animation command rebuilds all 16 GIFs, including the original sieve,
-and writes `riemann/animation_manifest.json`. That manifest records the
-actual dimensions, frame counts, loop durations, file sizes, and SHA-256
-hashes after decoding the saved files.
+The animation command rebuilds all 20 GIFs, including the original sieve
+and the four large-prime experiments. It also saves four PNG snapshots
+of the final 10,000-pair stages, making **20 GIFs and nine PNGs** in total
+across the two commands. It writes `riemann/animation_manifest.json`,
+which records actual dimensions, frame counts, loop durations, file
+sizes, and SHA-256 hashes after decoding the saved GIFs. The large-prime
+group also writes `riemann/large_prime_validation.json`.
 
 For a different output directory or thread count:
 
@@ -38,6 +42,11 @@ python riemann/generate_figures.py --output-dir output/riemann --threads 2
   with an overview, a close-up, and a magnified jump at the prime 29.
 - `zeta_zeros.png`: the first few trivial zeros and the first ten
   conjugate pairs of nontrivial zeros in the complex plane.
+- `large_prime_1m.png`, `large_prime_1b.png`, `large_prime_1t.png`, and
+  `large_prime_1000t.png`: final 10,000-pair snapshots near the four large
+  primes. Each preserves the actual counting error above an explicitly
+  aligned local-shape comparison. These PNGs are produced by the
+  `large-primes` animation group.
 
 ## What the animations explain
 
@@ -63,11 +72,16 @@ generated illustrations or interpolations invented to resemble a result.
 | [Zero reconstruction](assets/zero_reconstruction.gif) | Actual finite formulas sharpen the staircase as the zero count grows. | `reconstruction` |
 | [Zoom at prime 29](assets/gibbs_zoom.gif) | A fixed 10,000-pair curve reveals ringing under magnification. | `reconstruction` |
 | [Prime-count error bound](assets/prime_count_error_bound.gif) | Sieve discrepancies are compared with the classical RH envelope. | `error` |
+| [Near one million](assets/large_prime_1m.gif) | Fourteen zero-pair counts near 1,000,003 reveal broad curvature and unresolved prime steps. | `large-primes` |
+| [Near one billion](assets/large_prime_1b.gif) | The absolute estimate changes while the local shape is almost straight. | `large-primes` |
+| [Near one trillion](assets/large_prime_1t.gif) | A local shape comparison is separated from the error in the accumulated count. | `large-primes` |
+| [Near 1,000 trillion](assets/large_prime_1000t.gif) | Fixed zero heights give an extremely broad oscillation scale near one quadrillion. | `large-primes` |
 
 Rebuild just one group, or check the committed GIF files without rebuilding:
 
 ```bash
 python riemann/generate_animations.py --group reconstruction
+python riemann/generate_animations.py --group large-primes
 python riemann/generate_animations.py --verify-existing
 ```
 
@@ -87,6 +101,12 @@ changing the mathematical positions or the animation's timing.
 - The zero-count animation evaluates each displayed count separately.
   It does not morph between different finite sums and label the morph as
   an evaluated formula. Its black reference staircase is independent.
+- The large-prime animations likewise evaluate 14 actual finite sums,
+  using offsets from −200 to +200. Their upper panels retain the absolute
+  count error; their lower panels explicitly remove the center error to
+  expose local shape. Every upper panel keeps its symmetric-log scale
+  fixed through the animation. The lower panels use a common linear
+  scale. An exact midpoint marker appears at the focal prime.
 - The zoom holds all 10,000 zero pairs fixed. Its dense nonuniform samples
   resolve the small oscillations around 29 as the axes change scale.
 - The rotating vectors are finite illustrations at real part 1.5, where
@@ -142,7 +162,8 @@ takes half the jump at an exact prime power. Here the subscript zero on
 $J_0$ denotes the midpoint convention; it should not be confused with the
 finite calculation at $K=0$, which keeps only the smooth terms.
 
-The reconstructed ordinary prime count is
+For the original plots on $2\le x\le100$, the reconstructed ordinary
+prime count is
 
 $$
 \widehat\pi_K(x)=J_K(x)-\frac12J_K(x^{1/2})
@@ -170,6 +191,8 @@ fixed Möbius coefficients and the analytic correction terms.
 
 ## Numerical implementation and checks
 
+### Small-number windows
+
 `explicit_formula.py` provides two evaluators. `reconstruct_direct`
 evaluates complex exponential integrals with SciPy. `reconstruct_fast`
 evaluates the same finite formula using a Chebyshev approximation for
@@ -194,10 +217,142 @@ separately from the comparison between evaluators. That bound is
 conditional on the table's stated accuracy. None of these numerical
 checks is a proof of the Riemann hypothesis.
 
+### Large-prime windows
+
+Rebuild only the four new GIFs and their four final PNGs, or check the
+exact reference data independently:
+
+```bash
+python riemann/generate_animations.py --group large-primes
+python riemann/verify_large_prime_windows.py
+```
+
+`animate_large_primes.py` also runs directly with the usual `--output-dir`
+option. The plotted offsets are $-200\le h\le200$, where $x=p+h$. The
+reconstruction is sampled every 0.25 in the offset coordinate; the exact
+staircase uses the integer locations of the primes. The 14 evaluated
+zero-pair counts are `0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000,
+5000, 10000`. Every stage is a separately evaluated finite formula, and
+the final stage receives a longer hold before the animation loops.
+
+#### Exact references
+
+The four focal primes are the first primes strictly above their
+power-of-ten anchors. The source counts at those anchors are:
+
+| Anchor | Source value of the exact prime count | Focal prime | Fixed Möbius cutoff |
+|---:|---:|---:|---:|
+| 1,000,000 | 78,498 | 1,000,003 | 19 |
+| 1,000,000,000 | 50,847,534 | 1,000,000,007 | 29 |
+| 1,000,000,000,000 | 37,607,912,018 | 1,000,000,000,039 | 39 |
+| 1,000,000,000,000,000 | 29,844,570,422,669 | 1,000,000,000,000,037 | 49 |
+
+These counts come from [Tomás Oliveira e Silva's computational
+table](https://sweet.ua.pt/tos/primes.html), specifically its
+[`pi(10^k)` data](https://sweet.ua.pt/tos/primes/1d00.txt.gz). The repository
+uses the published counts; it does not recompute the four global totals.
+
+`data/large_prime_windows.json` records the source URLs and hashes, exact
+local prime lists, and recursive Lucas primality certificates. Its
+reference windows extend 500 integers in each direction, providing a
+margin beyond the plotted ±200. All 4,004 integers were checked against
+both SymPy's primality test and a separate deterministic Miller–Rabin
+implementation for this integer range. The standalone verifier uses
+Python integer arithmetic to recheck the window lists, 27 recursive
+Lucas certificates, and proper factors proving that each focal prime
+is the first prime after its anchor. It also checks the consistency of
+the reference counts, offsets, and half-integer midpoints.
+
+#### Formula and panel conventions
+
+`large_scale_formula.py` computes the same paired formula as the original
+evaluator, with the larger prime-power corrections included:
+
+$$
+F_K(x)=\sum_{m=1}^{M}\frac{\mu(m)}{m}J_K(x^{1/m}).
+$$
+
+For each window, $M=\lfloor\log_2(p+200)\rfloor$ is fixed while both $x$
+and $K$ vary. The table above gives the four cutoffs. The reconstruction
+receives the chosen center, offsets, zero heights, and zero-pair counts;
+it does not receive the prime list or the exact prime-count baseline.
+
+Let $A=\pi(p^-)+1/2$. The upper panel plots $F_K(p+h)-A$ and
+$\pi(p+h)-A$. Both subtract exactly the same baseline, so the
+reconstruction's actual vertical error remains visible. Its symmetric-log
+axis is linear within 20 counts of zero and logarithmic beyond that
+range; the axis limits stay fixed over all stages of each GIF.
+
+The lower panel plots $F_K(p+h)-F_K(p)$ against $\pi(p+h)-A$. It is
+explicitly labeled as a shape comparison with vertical error removed.
+Its reconstruction passes through zero by construction. The exact
+midpoint marker at $(0,0)$ represents the infinite formula's value at
+the focal prime; the right-continuous staircase jumps from $-1/2$ to
+$+1/2$ there. The actual midpoint error $F_K(p)-A$ is displayed throughout.
+
+The local cycle scale of the fastest retained zero is approximately
+$2\pi p/\gamma_K$. At $K=10000$, the four scales are about 636,
+636,093, 636,092,687, and 636,092,686,716 numbers. This is a local
+oscillation calculation, not a rigorous information limit. The last
+three are much wider than the entire plotted window, explaining why
+their local curves are almost straight. At $K=0$, there is no retained
+zero frequency; only the smooth and analytic correction terms remain.
+The error at a chosen prime can improve or worsen as $K$ increases.
+
+#### Numerical evaluation, input precision, and truncation
+
+The evaluator separates an absolute center value from the small local
+change. It forms the center using high-precision smooth exponential
+integrals, direct mpmath evaluation of low-argument complex terms, and
+a 20-term asymptotic expansion in extended precision above modulus 128.
+Only the real part of each paired exponential integral is needed.
+Centers are returned as decimal strings, and the exact midpoint is
+subtracted with decimal arithmetic before conversion to plotting floats.
+
+Local increments use `log1p(h/p)` and an integrated degree-64 Taylor
+series for the analytic derivative of the finite formula. They are
+computed directly, avoiding subtraction of two large totals. This matters
+near $10^{15}$, where ordinary floating-point spacing in the horizontal
+coordinate is already 0.125. Plotting integer-relative offsets also
+keeps the locations of individual prime steps unambiguous.
+
+Each rebuild checks representative complex Ei values against mpmath,
+compares the first ten pairs against a direct high-precision sum,
+compares centers against SciPy evaluation, compares Taylor degrees 48
+and 64, and independently integrates the full retained derivative with
+Gauss–Legendre quadrature at the window endpoints. These are numerical
+cross-checks on the finite calculation, not certified global bounds.
+The report records the discrepancies and numerical precision in use.
+
+For the supplied rounded zero table, the final midpoint errors are
+approximately −0.702893, −14.837824, −1,001.157591, and +1,872.175060
+primes. Those digits describe the implemented finite sum. They do not
+remove the source table's stated uncertainty of $3\times10^{-9}$ in
+each zero height. Its conservative propagated bounds on the absolute
+center values at 10,000 pairs are, rounded upward:
+
+| Scale | Bound from zero-height uncertainty alone |
+|---|---:|
+| 1 million | 0.0000264 primes |
+| 1 billion | 0.000818 primes |
+| 1 trillion | 0.0258 primes |
+| 1,000 trillion | 0.815 primes |
+
+The local increments have much smaller propagated uncertainty because
+the two nearby values share the same zero heights. Both bounds are
+recorded per zero-pair count in `large_prime_validation.json`, together
+with the fixed cutoffs, midpoint errors, cycle scales, and numerical
+checks. They assume the source's stated height accuracy. Keep three
+effects separate: **numerical evaluation error**, **uncertainty in the
+input zero heights**, and **truncation error from omitting later zeros**.
+An aligned lower panel removes a center offset for display; it does not
+reduce any of those errors in the absolute reconstruction.
+
 ## Sources
 
 - [Riemann's 1859 paper, English translation](https://www.maths.tcd.ie/pub/HistMath/People/Riemann/Zeta/EZeta.pdf).
 - [John Baez, Riemann's explicit formulas](https://math.ucr.edu/home/baez/mathematical/riemann_explicit_formula/explicit_formulas.html).
 - [Odlyzko's zero tables](https://www-users.cse.umn.edu/~odlyzko/zeta_tables/), with local provenance in [data/SOURCE.md](data/SOURCE.md).
+- [Tomás Oliveira e Silva's tables of prime counts](https://sweet.ua.pt/tos/primes.html), with the four anchor counts and local primality certificates in [data/large_prime_windows.json](data/large_prime_windows.json).
 - [SciPy `expi`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.expi.html) and [SciPy `exp1`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.exp1.html).
 - [FINUFFT documentation](https://finufft.readthedocs.io/).

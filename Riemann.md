@@ -521,6 +521,69 @@ This is why the picture must be interpreted at a stated scale. A plot that looks
 
 The graph also illustrates a distinction worth preserving even after a proof of RH: a finite computation shows what happens for the inputs and zero data it uses. A theorem supplies a reason that covers infinitely many cases. Our Python experiment does not inspect every zero or verify the new formal proof.
 
+### The same 10,000 pairs near much larger primes
+
+What happens if we keep those zero pairs and move the magnifying glass far along the number line? These four experiments center on the first prime after one million, one billion, one trillion, and 1,000 trillion. Here 1,000 trillion means one quadrillion, or $10^{15}$.
+
+| Scale | Focal prime $p$ | Exact number of primes through $p$ |
+|---|---:|---:|
+| 1 million | 1,000,003 | 78,499 |
+| 1 billion | 1,000,000,007 | 50,847,535 |
+| 1 trillion | 1,000,000,000,039 | 37,607,912,019 |
+| 1,000 trillion | 1,000,000,000,000,037 | 29,844,570,422,670 |
+
+The exact counts start from Tomás Oliveira e Silva's published counts at the four powers of ten. Separate integer primality checks identify each local step, and the bundled data include certificates for the four focal primes. We use those counts only for the reference staircase and the error calculation; they are not inputs to the zero-based formula.[^large-counts]
+
+Each animation uses the same window: 200 numbers below the chosen prime and 200 above it. The horizontal axis is the offset $h=x-p$, so zero marks the focal prime. The reconstruction is evaluated at 14 actual stages: **0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1,000, 2,000, 5,000, and 10,000 pairs**. The zero-pair-free stage retains the smooth, constant, trivial-zero, and prime-power corrections. The animation holds each evaluated curve; it does not invent intermediate curves by morphing between stages.
+
+To read the two panels, write $F_K(x)=\widehat\pi_K(x)$ and let $A=\pi(p^-)+1/2$, the exact midpoint of the jump at the focal prime.
+
+- **Upper panel: the actual count comparison.** Both curves subtract the same value $A$: the reconstruction shows $F_K(p+h)-A$, and the staircase shows $\pi(p+h)-A$. This keeps their vertical difference intact. The fixed symmetric-log axis has ordinary linear spacing near zero and compresses large positive and negative values so the full error remains visible.
+- **Lower panel: shape with vertical error removed.** The reconstruction shows $F_K(p+h)-F_K(p)$. Its center has deliberately been moved to zero, allowing us to inspect its local slope and curvature. Passing through the center here is guaranteed by this alignment; it does not show that the absolute prime count is correct. The upper panel and its displayed center error retain that information.
+
+The marked point $(0,0)$ is the exact midpoint target in both panels. The ordinary counting staircase itself jumps from $-1/2$ to $+1/2$ at the center. As before, the infinite explicit formula takes the midpoint of that jump.
+
+#### Near one million
+
+![Fourteen evaluated zero-pair counts reconstruct the prime count within 200 of 1000003. The upper panel preserves the actual counting error, and the lower panel removes only the center offset to expose the local shape.](riemann/assets/large_prime_1m.gif)
+
+*Near 1,000,003, the added zeros produce visible curvature, but 10,000 pairs still blur the individual steps. The final midpoint error is about −0.703 primes. Open the [10,000-pair still figure](riemann/assets/large_prime_1m.png) to inspect the last stage.*
+
+#### Near one billion
+
+![The zero-pair count increases from zero to 10000 near the prime 1000000007. The absolute error changes while the centered local reconstruction remains nearly straight.](riemann/assets/large_prime_1b.gif)
+
+*Near 1,000,000,007, the absolute estimate moves as more zeros are added, while its local shape changes very little across these 400 numbers. At 10,000 pairs, the midpoint error is about −14.838 primes. The [still figure](riemann/assets/large_prime_1b.png) keeps the actual error and the aligned shape visible together.*
+
+#### Near one trillion
+
+![The prime-count reconstruction near 1000000000039 progresses through 14 zero-pair counts. A symmetric-log upper panel shows the absolute error, and a linear lower panel shows the aligned local shape against individual prime steps.](riemann/assets/large_prime_1t.gif)
+
+*Near 1,000,000,000,039, the final estimate is about 1,001.2 primes below the exact midpoint. A nearly straight local curve can describe the average rate of increase while missing both the accumulated count and the individual jumps. Open the [still figure](riemann/assets/large_prime_1t.png) for the final comparison.*
+
+#### Near 1,000 trillion
+
+![The reconstruction near 1000000000000037 uses increasing zero-pair counts up to 10000. Large changes in the absolute estimate appear above a nearly unchanged, explicitly aligned local shape.](riemann/assets/large_prime_1000t.gif)
+
+*Near 1,000,000,000,000,037, the 10,000-pair estimate is about 1,872 primes above the midpoint. The lower curve remains almost straight throughout the animation because even the highest retained zero changes phase extremely slowly over this window. The [still figure](riemann/assets/large_prime_1000t.png) preserves the final stage.*
+
+#### Why the steps do not sharpen here
+
+The phase calculation in Section 8 explains what we are seeing. For the highest retained zero, one local cycle spans approximately $2\pi p/\gamma_{10000}$ numbers. Evaluating that scale at these four primes gives:[^explicit-scales]
+
+| Scale | Approximate length of the fastest retained cycle | 10,000-pair midpoint error | Bound from zero-height precision alone |
+|---|---:|---:|---:|
+| 1 million | 636 numbers | −0.703 primes | 0.0000264 primes |
+| 1 billion | 636,093 numbers | −14.838 primes | 0.000818 primes |
+| 1 trillion | 636,092,687 numbers | −1,001.2 primes | 0.0258 primes |
+| 1,000 trillion | 636,092,686,716 numbers | +1,872 primes | 0.815 primes |
+
+These cycle lengths describe the oscillatory resolution of this finite sum; they are not rigorous limits on every possible reconstruction method. Near one million, even the shortest cycle covers about 46 typical prime gaps. At the other three scales it is much wider than our entire 400-number window. Keeping the same 10,000 pairs therefore does not resolve individual primes this far out. To see smaller features at larger $x$, we need much higher zero heights.
+
+Watch the upper panels as carefully as the lower ones: **adding more zeros need not improve the answer at this particular prime on every stage**. An intermediate estimate can land closer to the exact midpoint than a later one. Alignment in the lower panel also removes an error by construction; it does not remove that error from the mathematical estimate.
+
+The final column is a separate precision limit. It propagates the source table's stated uncertainty of $3\times10^{-9}$ per zero height through our finite formula, using a conservative worst-case bound rounded upward.[^odlyzko] It is neither the error from omitting later zeros nor an estimate of floating-point error. The large-scale evaluator checks its numerical calculations separately and computes small local changes directly, avoiding the loss of precision that can occur when subtracting two enormous totals. Its implementation and checks are described in the [reproduction notes](riemann/REPRODUCE.md#large-prime-windows).
+
 ## 12. What RH says about the error
 
 Return to the discrepancy
@@ -591,15 +654,15 @@ python riemann/generate_figures.py
 python riemann/generate_animations.py
 ~~~
 
-The code keeps the sieve separate from the zero-based reconstruction and records numerical validation. It includes a direct implementation of the finite formula and an accelerated evaluation for drawing the dense 10,000-pair curve.
+These commands rebuild all 20 GIFs and nine PNGs. The original figure generator produces five PNGs; the animation generator also saves the four large-prime final snapshots. The code keeps the exact reference counts separate from the zero-based reconstruction and records numerical validation. It includes a direct implementation of the finite formula, an accelerated evaluation for the small-number plots, and a separate evaluator for stable local calculations near the four large primes.
 
 Three implementation choices deserve explanation:
 
 1. **Evaluate the complex exponential integral directly.** The code uses $\mathrm{Ei}(\rho\log x)$. Computing a complex power first and then taking its principal logarithm can wrap the phase and evaluate the wrong expression.
-2. **Use the same prime-power cutoff throughout this experiment.** For $2\le x\le100$, the Möbius sum uses $m\le6$ everywhere. The exact $J(y)$ vanishes below 2, but its finite approximation need not. Changing the cutoff as $x$ moves can therefore introduce artificial jumps.
-3. **Distinguish numerical error from truncation error.** Agreement between two implementations of the same finite formula checks the numerical evaluation. Agreement with the prime staircase measures what is lost by retaining finitely many zeros. Neither check is a proof about every zero.
+2. **Use a fixed prime-power cutoff within each plotted window.** For $2\le x\le100$, the Möbius sum uses $m\le6$ everywhere. The four large-prime windows use cutoffs 19, 29, 39, and 49 respectively. The exact $J(y)$ vanishes below 2, but its finite approximation need not. Changing the cutoff as $x$ moves can therefore introduce artificial jumps.
+3. **Distinguish numerical error, source precision, and truncation error.** Agreement between two implementations of the same finite formula checks the numerical evaluation. The zero table's finite precision contributes a separate uncertainty. After accounting for those effects, comparison with the prime staircase reveals the error from retaining finitely many zeros. None of these finite checks is a proof about every zero.
 
-Useful next experiments are to move the close-up from 20–40 to 60–80 while keeping the same zero count, compare behavior at primes and prime powers, and test how smoothing the zero cutoff changes the ringing. Extending the computation beyond 100 also requires revisiting the prime-power cutoff and the accelerated evaluator's numerical settings. Each experiment asks a precise question that the code can help answer.
+Useful next experiments are to compare behavior at primes and prime powers, test how smoothing the zero cutoff changes the ringing, or increase the zero heights available to the large-prime experiment. The four large-scale windows now have their own evaluator and numerical checks; extending to a new scale or a wider window requires checking that numerical regime too. Each experiment asks a precise question that the code can help answer.
 
 ## Sources and further reading
 
@@ -621,6 +684,8 @@ Useful next experiments are to move the close-up from 20–40 to 60–80 while k
 [^zeros]: NIST Digital Library of Mathematical Functions, [Section 25.10: Zeros](https://dlmf.nist.gov/25.10).
 [^odlyzko]: Andrew Odlyzko, [Tables of zeros of the Riemann zeta function](https://www-users.cse.umn.edu/~odlyzko/zeta_tables/), specifically the [first 100,000 zero heights](https://www-users.cse.umn.edu/~odlyzko/zeta_tables/zeros1), of which this experiment uses the first 10,000.
 [^explicit]: Bernhard Riemann, [“On the Number of Prime Numbers less than a Given Quantity”](https://www.maths.tcd.ie/pub/HistMath/People/Riemann/Zeta/EZeta.pdf), 1859, English translation by David R. Wilkins. For a modern statement of the formula with the constant, integral correction, and Möbius inversion, see [“Riemann's explicit formula, one zero at a time”](https://math.ucr.edu/home/baez/mathematical/riemann_explicit_formula/riemann_explicit_formula.html), hosted by John Baez at UC Riverside.
+[^explicit-scales]: John Baez, [“Riemann's Explicit Formulas”](https://math.ucr.edu/home/baez/mathematical/riemann_explicit_formula/explicit_formulas.html), October 31, 2026. Explains the oscillation phase, the local cycle scale, the Möbius corrections, and the midpoint convention. The large-scale cycle lengths and finite-sum errors here are computed from the bundled zero table by this repository's code.
+[^large-counts]: Tomás Oliveira e Silva, [Tables of values of pi(x) and of pi2(x)](https://sweet.ua.pt/tos/primes.html), specifically the [first 23 values of pi(10^k)](https://sweet.ua.pt/tos/primes/1d00.txt.gz), updated March 28, 2007. The four source counts, local prime lists, primality certificates, and verification metadata are recorded in [large_prime_windows.json](riemann/data/large_prime_windows.json). The source counts are used as published; the reproduction code checks the local integers and certificates without recomputing those four full prime counts.
 [^bombieri]: Enrico Bombieri, “The Riemann Hypothesis,” in the Clay Mathematics Institute's [*The Millennium Prize Problems*](https://www.claymath.org/wp-content/uploads/2022/02/MPPc.pdf), for the equivalent prime-counting error formulation and mathematical context.
 [^primecount]: Jan Büthe, [Analytic computation of the prime-counting function](https://www.math.uni-bonn.de/people/jbuethe/topics/AnalyticPiX.html).
 [^platt]: David J. Platt, [“Computing $\pi(x)$ Analytically”](https://arxiv.org/abs/1203.5712), describing the unconditional verification of $\pi(10^{24})$.

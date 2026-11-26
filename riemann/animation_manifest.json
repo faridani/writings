@@ -73,6 +73,54 @@
       "sha256": "4de9c94f2d18544ba9a283cf6b5b32251e970b7bac2679fe0bc91b4a07e69376"
     },
     {
+      "file": "large_prime_1000t.gif",
+      "dimensions": [
+        1000,
+        940
+      ],
+      "frames": 14,
+      "duration_seconds": 18.8,
+      "loop_forever": true,
+      "size_bytes": 156243,
+      "sha256": "822fbeb28c01cdbf77f76c2f4953dc6b9169229b370bab5e6d2147da347a6115"
+    },
+    {
+      "file": "large_prime_1b.gif",
+      "dimensions": [
+        1000,
+        940
+      ],
+      "frames": 14,
+      "duration_seconds": 18.8,
+      "loop_forever": true,
+      "size_bytes": 166865,
+      "sha256": "5a8e3a65de1f6ad7bea2d40f0c0aaedce17fa7b8d127c01550760b381ea88569"
+    },
+    {
+      "file": "large_prime_1m.gif",
+      "dimensions": [
+        1000,
+        940
+      ],
+      "frames": 14,
+      "duration_seconds": 18.8,
+      "loop_forever": true,
+      "size_bytes": 171291,
+      "sha256": "daf1c60bf923b7b29b122ce84e38f18c16372721fd5224ea550af52d93590827"
+    },
+    {
+      "file": "large_prime_1t.gif",
+      "dimensions": [
+        1000,
+        940
+      ],
+      "frames": 14,
+      "duration_seconds": 18.8,
+      "loop_forever": true,
+      "size_bytes": 148383,
+      "sha256": "329a5e8437b9d464ba1998b0afa48fc717955c64986c6f6649635c1e498ac0b2"
+    },
+    {
       "file": "mobius_correction.gif",
       "dimensions": [
         1000,
@@ -193,5 +241,5 @@
       "sha256": "28a528f5cc0f2f8a4a1c46fcb704e72fb795eb63e3958b16faaf740cfb32d86a"
     }
   ],
-  "total_size_bytes": 5969788
+  "total_size_bytes": 6612570
 }

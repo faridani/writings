@@ -1,0 +1,831 @@
+{
+  "schema_version": 1,
+  "formula": "Finite paired explicit formula with complete fixed Mobius sum in each window",
+  "upper_panel": "F_K(p+h)-A and pi(p+h)-A, A=pi(p-)+1/2",
+  "lower_panel": "F_K(p+h)-F_K(p) and pi(p+h)-A; the reconstruction center error is removed",
+  "prime_reference": "data/large_prime_windows.json",
+  "zero_data": "data/odlyzko_zeros_10000.txt",
+  "caveat": "Numerical cross-checks are empirical, source bounds assume the published table precision, and neither controls finite-zero truncation error.",
+  "windows": [
+    {
+      "scale": "1 million",
+      "prime": 1000003,
+      "anchor_count": 78498,
+      "exact_midpoint": "78498.5",
+      "window_radius": 200,
+      "offset_step": 0.25,
+      "primes_in_plot": 28,
+      "mobius_cutoff": 19,
+      "upper_symmetric_log_limits": [
+        -60,
+        60
+      ],
+      "upper_linear_threshold": 20,
+      "lower_linear_limits": [
+        -20,
+        20
+      ],
+      "stages": [
+        {
+          "zero_pairs": 0,
+          "reconstruction_at_prime_decimal": "78527.5908115404258192577940455770484951568",
+          "error_at_midpoint": 29.09081154042582,
+          "local_cycle_scale": null,
+          "zero_table_center_error_bound": 0.0,
+          "zero_table_increment_error_bound": 0.0,
+          "increment_min": -14.468826416580955,
+          "increment_max": 14.468617755103699
+        },
+        {
+          "zero_pairs": 1,
+          "reconstruction_at_prime_decimal": "78522.3610288651532755856111523835546824679",
+          "error_at_midpoint": 23.861028865153276,
+          "local_cycle_scale": 444522.5565841079,
+          "zero_table_center_error_bound": 4.334437981856597e-07,
+          "zero_table_increment_error_bound": 1.2113863872612155e-09,
+          "increment_min": -14.442867412764853,
+          "increment_max": 14.442701055339667
+        },
+        {
+          "zero_pairs": 2,
+          "reconstruction_at_prime_decimal": "78515.7640037478755827801538317888758834548",
+          "error_at_midpoint": 17.264003747875584,
+          "local_cycle_scale": 298886.5145644067,
+          "zero_table_center_error_bound": 7.249810480748478e-07,
+          "zero_table_increment_error_bound": 2.422772774522431e-09,
+          "increment_min": -14.43825655731361,
+          "increment_max": 14.438210021926709
+        },
+        {
+          "zero_pairs": 5,
+          "reconstruction_at_prime_decimal": "78516.8570587123901432368182596141775168059",
+          "error_at_midpoint": 18.357058712390142,
+          "local_cycle_scale": 190775.5399195857,
+          "zero_table_center_error_bound": 1.357626198028364e-06,
+          "zero_table_increment_error_bound": 6.056931936306078e-09,
+          "increment_min": -14.41042259988639,
+          "increment_max": 14.41036066222512
+        },
+        {
+          "zero_pairs": 10,
+          "reconstruction_at_prime_decimal": "78517.0360950644580222383518325083834141078",
+          "error_at_midpoint": 18.53609506445802,
+          "local_cycle_scale": 126235.08867862806,
+          "zero_table_center_error_bound": 2.0628634920574516e-06,
+          "zero_table_increment_error_bound": 1.2113863872612156e-08,
+          "increment_min": -14.457258395502352,
+          "increment_max": 14.457240544458577
+        },
+        {
+          "zero_pairs": 20,
+          "reconstruction_at_prime_decimal": "78516.6127970062014031077965600120459022904",
+          "error_at_midpoint": 18.112797006201404,
+          "local_cycle_scale": 81446.84921396784,
+          "zero_table_center_error_bound": 3.0104505466108753e-06,
+          "zero_table_increment_error_bound": 2.422772774522431e-08,
+          "increment_min": -14.557763591140121,
+          "increment_max": 14.557699424010949
+        },
+        {
+          "zero_pairs": 50,
+          "reconstruction_at_prime_decimal": "78504.5820967518583418024245945152104364147",
+          "error_at_midpoint": 6.082096751858342,
+          "local_cycle_scale": 43904.151478593216,
+          "zero_table_center_error_bound": 4.690917291593956e-06,
+          "zero_table_increment_error_bound": 6.056931936306078e-08,
+          "increment_min": -14.619967765349559,
+          "increment_max": 14.62510156568039
+        },
+        {
+          "zero_pairs": 100,
+          "reconstruction_at_prime_decimal": "78502.1653069043126630820952369975990488343",
+          "error_at_midpoint": 3.665306904312663,
+          "local_cycle_scale": 26564.737852050635,
+          "zero_table_center_error_bound": 6.320991776716265e-06,
+          "zero_table_increment_error_bound": 1.2113863872612156e-07,
+          "increment_min": -14.74413512094201,
+          "increment_max": 14.75233446678159
+        },
+        {
+          "zero_pairs": 200,
+          "reconstruction_at_prime_decimal": "78501.5189090343207088262445417854840224778",
+          "error_at_midpoint": 3.018909034320709,
+          "local_cycle_scale": 15851.392009485498,
+          "zero_table_center_error_bound": 8.285502850346306e-06,
+          "zero_table_increment_error_bound": 2.422772774522431e-07,
+          "increment_min": -14.774722694099687,
+          "increment_max": 14.79152940552318
+        },
+        {
+          "zero_pairs": 500,
+          "reconstruction_at_prime_decimal": "78502.8803474231501570378238405942088373945",
+          "error_at_midpoint": 4.380347423150157,
+          "local_cycle_scale": 7745.716603394965,
+          "zero_table_center_error_bound": 1.1425198082012737e-05,
+          "zero_table_increment_error_bound": 6.056931936306077e-07,
+          "increment_min": -14.866931347876964,
+          "increment_max": 14.88298338587545
+        },
+        {
+          "zero_pairs": 1000,
+          "reconstruction_at_prime_decimal": "78500.8104703177688954148454025740246871794",
+          "error_at_midpoint": 2.310470317768895,
+          "local_cycle_scale": 4426.591970382174,
+          "zero_table_center_error_bound": 1.4228567924693915e-05,
+          "zero_table_increment_error_bound": 1.2113863872612155e-06,
+          "increment_min": -14.155778609910119,
+          "increment_max": 14.28684801933251
+        },
+        {
+          "zero_pairs": 2000,
+          "reconstruction_at_prime_decimal": "78500.4600216283943949692790150100922316061",
+          "error_at_midpoint": 1.960021628394395,
+          "local_cycle_scale": 2498.007363928118,
+          "zero_table_center_error_bound": 1.7412924195366844e-05,
+          "zero_table_increment_error_bound": 2.422772774522431e-06,
+          "increment_min": -14.33165478605909,
+          "increment_max": 14.546103314391829
+        },
+        {
+          "zero_pairs": 5000,
+          "reconstruction_at_prime_decimal": "78498.8099035449211030183352012232598689223",
+          "error_at_midpoint": 0.309903544921103,
+          "local_cycle_scale": 1153.3339425071747,
+          "zero_table_center_error_bound": 2.222178041010963e-05,
+          "zero_table_increment_error_bound": 6.056931936306077e-06,
+          "increment_min": -13.683281127778175,
+          "increment_max": 14.852043511757833
+        },
+        {
+          "zero_pairs": 10000,
+          "reconstruction_at_prime_decimal": "78497.7971067649609130323000569312257936065",
+          "error_at_midpoint": -0.702893235039087,
+          "local_cycle_scale": 636.0945949938051,
+          "zero_table_center_error_bound": 2.6322007392300774e-05,
+          "zero_table_increment_error_bound": 1.2113863872612155e-05,
+          "increment_min": -12.403224999849233,
+          "increment_max": 15.267542712073128
+        }
+      ],
+      "numerical_validation": {
+        "longdouble_significand_bits": 64,
+        "taylor_degree": 64,
+        "maximum_local_zero_phase": 1.9757481849612075,
+        "mpmath_sample_Ei_max_absolute_difference": 1.4994888522167605e-17,
+        "direct_SciPy_center_max_absolute_difference": 1.1840070679721787e-11,
+        "direct_mpmath_first_ten_center_difference": 9.964315951506894e-17,
+        "degree_48_vs_64_increment_max_difference": 0.0,
+        "independent_quadrature_increment_max_difference": 0.0,
+        "trivial_series_tail_bound": 2.2183653438409943e-42,
+        "zero_height_table_error_assumption": 3e-09,
+        "zero_table_center_error_bounds": {
+          "0": 0.0,
+          "1": 4.334437981856597e-07,
+          "2": 7.249810480748478e-07,
+          "5": 1.357626198028364e-06,
+          "10": 2.0628634920574516e-06,
+          "20": 3.0104505466108753e-06,
+          "50": 4.690917291593956e-06,
+          "100": 6.320991776716265e-06,
+          "200": 8.285502850346306e-06,
+          "500": 1.1425198082012737e-05,
+          "1000": 1.4228567924693915e-05,
+          "2000": 1.7412924195366844e-05,
+          "5000": 2.222178041010963e-05,
+          "10000": 2.6322007392300774e-05
+        },
+        "zero_table_increment_error_bounds": {
+          "0": 0.0,
+          "1": 1.2113863872612155e-09,
+          "2": 2.422772774522431e-09,
+          "5": 6.056931936306078e-09,
+          "10": 1.2113863872612156e-08,
+          "20": 2.422772774522431e-08,
+          "50": 6.056931936306078e-08,
+          "100": 1.2113863872612156e-07,
+          "200": 2.422772774522431e-07,
+          "500": 6.056931936306077e-07,
+          "1000": 1.2113863872612155e-06,
+          "2000": 2.422772774522431e-06,
+          "5000": 6.056931936306077e-06,
+          "10000": 1.2113863872612155e-05
+        }
+      }
+    },
+    {
+      "scale": "1 billion",
+      "prime": 1000000007,
+      "anchor_count": 50847534,
+      "exact_midpoint": "50847534.5",
+      "window_radius": 200,
+      "offset_step": 0.25,
+      "primes_in_plot": 15,
+      "mobius_cutoff": 29,
+      "upper_symmetric_log_limits": [
+        -200,
+        200
+      ],
+      "upper_linear_threshold": 20,
+      "lower_linear_limits": [
+        -20,
+        20
+      ],
+      "stages": [
+        {
+          "zero_pairs": 0,
+          "reconstruction_at_prime_decimal": "50847455.7717764040346922359730493714887978",
+          "error_at_midpoint": -78.7282235959653,
+          "local_cycle_scale": null,
+          "zero_table_center_error_bound": 0.0,
+          "zero_table_increment_error_bound": 0.0,
+          "increment_min": -9.650832621860737,
+          "increment_max": 9.650832528736368
+        },
+        {
+          "zero_pairs": 1,
+          "reconstruction_at_prime_decimal": "50847608.8736379699622230850396445202961857",
+          "error_at_midpoint": 74.37363796996222,
+          "local_cycle_scale": 444521226.1320874,
+          "zero_table_center_error_bound": 1.3459213311092891e-05,
+          "zero_table_increment_error_bound": 3.800570521115742e-11,
+          "increment_min": -9.651278568528323,
+          "increment_max": 9.65127847417726
+        },
+        {
+          "zero_pairs": 2,
+          "reconstruction_at_prime_decimal": "50847484.9898792238349224700114910624874915",
+          "error_at_midpoint": -49.510120776165074,
+          "local_cycle_scale": 298885619.9997523,
+          "zero_table_center_error_bound": 2.2511971825144215e-05,
+          "zero_table_increment_error_bound": 7.601141042231484e-11,
+          "increment_min": -9.651588971049788,
+          "increment_max": 9.651588878875737
+        },
+        {
+          "zero_pairs": 5,
+          "reconstruction_at_prime_decimal": "50847468.1225336628298930061533209012979477",
+          "error_at_midpoint": -66.3774663371701,
+          "local_cycle_scale": 190774968.93010768,
+          "zero_table_center_error_bound": 4.2156747131873785e-05,
+          "zero_table_increment_error_bound": 1.9002852605578713e-10,
+          "increment_min": -9.65297638545115,
+          "increment_max": 9.652976293444317
+        },
+        {
+          "zero_pairs": 10,
+          "reconstruction_at_prime_decimal": "50847434.6840803292940771781468125050717174",
+          "error_at_midpoint": -99.81591967070592,
+          "local_cycle_scale": 126234710.85814111,
+          "zero_table_center_error_bound": 6.405563971035218e-05,
+          "zero_table_increment_error_bound": 3.8005705211157427e-10,
+          "increment_min": -9.651277629441102,
+          "increment_max": 9.651277542657386
+        },
+        {
+          "zero_pairs": 20,
+          "reconstruction_at_prime_decimal": "50847566.2474968269148304056440786197758917",
+          "error_at_midpoint": 31.74749682691483,
+          "local_cycle_scale": 81446605.44427946,
+          "zero_table_center_error_bound": 9.347993035991372e-05,
+          "zero_table_increment_error_bound": 7.601141042231485e-10,
+          "increment_min": -9.65299863003377,
+          "increment_max": 9.652998522821564
+        },
+        {
+          "zero_pairs": 50,
+          "reconstruction_at_prime_decimal": "50847416.1455199407736465172780310919582551",
+          "error_at_midpoint": -118.35448005922635,
+          "local_cycle_scale": 43904020.07386205,
+          "zero_table_center_error_bound": 0.00014566145995521598,
+          "zero_table_increment_error_bound": 1.900285260557871e-09,
+          "increment_min": -9.653973248111257,
+          "increment_max": 9.653973213133307
+        },
+        {
+          "zero_pairs": 100,
+          "reconstruction_at_prime_decimal": "50847522.7613677052901159741826060203551306",
+          "error_at_midpoint": -11.738632294709884,
+          "local_cycle_scale": 26564658.344028767,
+          "zero_table_center_error_bound": 0.0001962782188062299,
+          "zero_table_increment_error_bound": 3.800570521115742e-09,
+          "increment_min": -9.652159692777749,
+          "increment_max": 9.652159547598934
+        },
+        {
+          "zero_pairs": 200,
+          "reconstruction_at_prime_decimal": "50847514.7508401616298560752643886325812438",
+          "error_at_midpoint": -19.749159838370144,
+          "local_cycle_scale": 15851344.566411544,
+          "zero_table_center_error_bound": 0.0002572798381688059,
+          "zero_table_increment_error_bound": 7.601141042231484e-09,
+          "increment_min": -9.650703426723902,
+          "increment_max": 9.650703246627199
+        },
+        {
+          "zero_pairs": 500,
+          "reconstruction_at_prime_decimal": "50847550.1612102071246673176721340561805634",
+          "error_at_midpoint": 15.661210207124668,
+          "local_cycle_scale": 7745693.420534721,
+          "zero_table_center_error_bound": 0.00035477304958792314,
+          "zero_table_increment_error_bound": 1.9002852605578712e-08,
+          "increment_min": -9.640753045595078,
+          "increment_max": 9.640752370282572
+        },
+        {
+          "zero_pairs": 1000,
+          "reconstruction_at_prime_decimal": "50847590.2934340365933558142452696464754683",
+          "error_at_midpoint": 55.793434036593354,
+          "local_cycle_scale": 4426578.721632153,
+          "zero_table_center_error_bound": 0.0004418227498269592,
+          "zero_table_increment_error_bound": 3.8005705211157424e-08,
+          "increment_min": -9.629388071983046,
+          "increment_max": 9.629386597751042
+        },
+        {
+          "zero_pairs": 2000,
+          "reconstruction_at_prime_decimal": "50847571.593966147905364060662200577999713",
+          "error_at_midpoint": 37.09396614790536,
+          "local_cycle_scale": 2497999.8874145076,
+          "zero_table_center_error_bound": 0.0005407027672246129,
+          "zero_table_increment_error_bound": 7.601141042231485e-08,
+          "increment_min": -9.597310780920218,
+          "increment_max": 9.597312340362532
+        },
+        {
+          "zero_pairs": 5000,
+          "reconstruction_at_prime_decimal": "50847540.1187239829417452210841489159059912",
+          "error_at_midpoint": 5.618723982941745,
+          "local_cycle_scale": 1153330.4905890406,
+          "zero_table_center_error_bound": 0.0006900264438985483,
+          "zero_table_increment_error_bound": 1.9002852605578711e-07,
+          "increment_min": -9.609867937286362,
+          "increment_max": 9.609874298910336
+        },
+        {
+          "zero_pairs": 10000,
+          "reconstruction_at_prime_decimal": "50847519.6621763907989135061451029456609692",
+          "error_at_midpoint": -14.837823609201086,
+          "local_cycle_scale": 636092.6911683937,
+          "zero_table_center_error_bound": 0.0008173459021725162,
+          "zero_table_increment_error_bound": 3.8005705211157423e-07,
+          "increment_min": -9.64611124639492,
+          "increment_max": 9.646165225777247
+        }
+      ],
+      "numerical_validation": {
+        "longdouble_significand_bits": 64,
+        "taylor_degree": 64,
+        "maximum_local_zero_phase": 0.001975556714527581,
+        "mpmath_sample_Ei_max_absolute_difference": 1.998431738892745e-15,
+        "direct_SciPy_center_max_absolute_difference": 8.187268526109304e-11,
+        "direct_mpmath_first_ten_center_difference": 5.572496171767161e-15,
+        "degree_48_vs_64_increment_max_difference": 0.0,
+        "independent_quadrature_increment_max_difference": 1.7763568394002505e-15,
+        "trivial_series_tail_bound": 2.0748446905711942e-42,
+        "zero_height_table_error_assumption": 3e-09,
+        "zero_table_center_error_bounds": {
+          "0": 0.0,
+          "1": 1.3459213311092891e-05,
+          "2": 2.2511971825144215e-05,
+          "5": 4.2156747131873785e-05,
+          "10": 6.405563971035218e-05,
+          "20": 9.347993035991372e-05,
+          "50": 0.00014566145995521598,
+          "100": 0.0001962782188062299,
+          "200": 0.0002572798381688059,
+          "500": 0.00035477304958792314,
+          "1000": 0.0004418227498269592,
+          "2000": 0.0005407027672246129,
+          "5000": 0.0006900264438985483,
+          "10000": 0.0008173459021725162
+        },
+        "zero_table_increment_error_bounds": {
+          "0": 0.0,
+          "1": 3.800570521115742e-11,
+          "2": 7.601141042231484e-11,
+          "5": 1.9002852605578713e-10,
+          "10": 3.8005705211157427e-10,
+          "20": 7.601141042231485e-10,
+          "50": 1.900285260557871e-09,
+          "100": 3.800570521115742e-09,
+          "200": 7.601141042231484e-09,
+          "500": 1.9002852605578712e-08,
+          "1000": 3.8005705211157424e-08,
+          "2000": 7.601141042231485e-08,
+          "5000": 1.9002852605578711e-07,
+          "10000": 3.8005705211157423e-07
+        }
+      }
+    },
+    {
+      "scale": "1 trillion",
+      "prime": 1000000000039,
+      "anchor_count": 37607912018,
+      "exact_midpoint": "37607912018.5",
+      "window_radius": 200,
+      "offset_step": 0.25,
+      "primes_in_plot": 20,
+      "mobius_cutoff": 39,
+      "upper_symmetric_log_limits": [
+        -9000,
+        9000
+      ],
+      "upper_linear_threshold": 20,
+      "lower_linear_limits": [
+        -20,
+        20
+      ],
+      "stages": [
+        {
+          "zero_pairs": 0,
+          "reconstruction_at_prime_decimal": "37607910543.6620511148778226562232020824454",
+          "error_at_midpoint": -1474.8379488851222,
+          "local_cycle_scale": null,
+          "zero_table_center_error_bound": 0.0,
+          "zero_table_increment_error_bound": 0.0,
+          "increment_min": -7.238237721529197,
+          "increment_max": 7.238237721476805
+        },
+        {
+          "zero_pairs": 1,
+          "reconstruction_at_prime_decimal": "37607906152.1425676322570372161451731727531",
+          "error_at_midpoint": -5866.357432367743,
+          "local_cycle_scale": 444521223037.7752,
+          "zero_table_center_error_bound": 0.00042445086749484114,
+          "zero_table_increment_error_bound": 1.200314784661788e-12,
+          "increment_min": -7.238229898785432,
+          "increment_max": 7.238229898733076
+        },
+        {
+          "zero_pairs": 2,
+          "reconstruction_at_prime_decimal": "37607905098.0568397068043956589017686849126",
+          "error_at_midpoint": -6920.443160293195,
+          "local_cycle_scale": 298885617919.20953,
+          "zero_table_center_error_bound": 0.0007099394109703726,
+          "zero_table_increment_error_bound": 2.400629569323576e-12,
+          "increment_min": -7.238243575613759,
+          "increment_max": 7.238243575561421
+        },
+        {
+          "zero_pairs": 5,
+          "reconstruction_at_prime_decimal": "37607909396.5298063150744785641383285747364",
+          "error_at_midpoint": -2621.9701936849256,
+          "local_cycle_scale": 190774967602.12314,
+          "zero_table_center_error_bound": 0.001329458674686205,
+          "zero_table_increment_error_bound": 6.001573923308939e-12,
+          "increment_min": -7.238217523899007,
+          "increment_max": 7.238217523846501
+        },
+        {
+          "zero_pairs": 10,
+          "reconstruction_at_prime_decimal": "37607908493.9017951560037868841059537860654",
+          "error_at_midpoint": -3524.5982048439964,
+          "local_cycle_scale": 126234709979.4213,
+          "zero_table_center_error_bound": 0.0020200639676754084,
+          "zero_table_increment_error_bound": 1.2003147846617878e-11,
+          "increment_min": -7.238199382032964,
+          "increment_max": 7.238199381980489
+        },
+        {
+          "zero_pairs": 20,
+          "reconstruction_at_prime_decimal": "37607907885.9399227581599891689937693984517",
+          "error_at_midpoint": -4132.56007724184,
+          "local_cycle_scale": 81446604877.32965,
+          "zero_table_center_error_bound": 0.002947990838507699,
+          "zero_table_increment_error_bound": 2.4006295693235757e-11,
+          "increment_min": -7.238144314921874,
+          "increment_max": 7.238144314869479
+        },
+        {
+          "zero_pairs": 50,
+          "reconstruction_at_prime_decimal": "37607911156.3600642530726975084942650956256",
+          "error_at_midpoint": -862.1399357469273,
+          "local_cycle_scale": 43904019768.24618,
+          "zero_table_center_error_bound": 0.004593591884571758,
+          "zero_table_increment_error_bound": 6.00157392330894e-11,
+          "increment_min": -7.238273046235548,
+          "increment_max": 7.2382730461819405
+        },
+        {
+          "zero_pairs": 100,
+          "reconstruction_at_prime_decimal": "37607910435.986328714219263333793627849393",
+          "error_at_midpoint": -1582.5136712857807,
+          "local_cycle_scale": 26564658159.112183,
+          "zero_table_center_error_bound": 0.006189846190637549,
+          "zero_table_increment_error_bound": 1.200314784661788e-10,
+          "increment_min": -7.2382332137390195,
+          "increment_max": 7.238233213686869
+        },
+        {
+          "zero_pairs": 200,
+          "reconstruction_at_prime_decimal": "37607912036.3510224126613727168880109754548",
+          "error_at_midpoint": 17.851022412661372,
+          "local_cycle_scale": 15851344456.070335,
+          "zero_table_center_error_bound": 0.008113598319277602,
+          "zero_table_increment_error_bound": 2.400629569323576e-10,
+          "increment_min": -7.238209195888602,
+          "increment_max": 7.238209195831046
+        },
+        {
+          "zero_pairs": 500,
+          "reconstruction_at_prime_decimal": "37607912857.8895693745369063689447085275674",
+          "error_at_midpoint": 839.3895693745369,
+          "local_cycle_scale": 7745693366.616949,
+          "zero_table_center_error_bound": 0.011188152322192214,
+          "zero_table_increment_error_bound": 6.001573923308939e-10,
+          "increment_min": -7.238273949015589,
+          "increment_max": 7.238273948955879
+        },
+        {
+          "zero_pairs": 1000,
+          "reconstruction_at_prime_decimal": "37607912053.3443716713816074584047060512762",
+          "error_at_midpoint": 34.84437167138161,
+          "local_cycle_scale": 4426578690.818739,
+          "zero_table_center_error_bound": 0.013933358890184745,
+          "zero_table_increment_error_bound": 1.2003147846617878e-09,
+          "increment_min": -7.238316310514643,
+          "increment_max": 7.238316310489337
+        },
+        {
+          "zero_pairs": 2000,
+          "reconstruction_at_prime_decimal": "37607912238.1084754403407926024100756631932",
+          "error_at_midpoint": 219.60847544034078,
+          "local_cycle_scale": 2497999870.025931,
+          "zero_table_center_error_bound": 0.017051647321481716,
+          "zero_table_increment_error_bound": 2.4006295693235757e-09,
+          "increment_min": -7.238648227079928,
+          "increment_max": 7.238648227022345
+        },
+        {
+          "zero_pairs": 5000,
+          "reconstruction_at_prime_decimal": "37607911260.1353697956360260764770754440319",
+          "error_at_midpoint": -758.364630204364,
+          "local_cycle_scale": 1153330482.560707,
+          "zero_table_center_error_bound": 0.021760731176296146,
+          "zero_table_increment_error_bound": 6.001573923308939e-09,
+          "increment_min": -7.238922839138948,
+          "increment_max": 7.238922839678165
+        },
+        {
+          "zero_pairs": 10000,
+          "reconstruction_at_prime_decimal": "37607911017.342409127573538288197051168171",
+          "error_at_midpoint": -1001.1575908724265,
+          "local_cycle_scale": 636092686.7405525,
+          "zero_table_center_error_bound": 0.025775888174277537,
+          "zero_table_increment_error_bound": 1.2003147846617878e-08,
+          "increment_min": -7.238722930804739,
+          "increment_max": 7.238722931624665
+        }
+      ],
+      "numerical_validation": {
+        "longdouble_significand_bits": 64,
+        "taylor_degree": 64,
+        "maximum_local_zero_phase": 1.975556530921309e-06,
+        "mpmath_sample_Ei_max_absolute_difference": 4.9678139302905274e-14,
+        "direct_SciPy_center_max_absolute_difference": 4.138343686818509e-09,
+        "direct_mpmath_first_ten_center_difference": 1.440447741666698e-13,
+        "degree_48_vs_64_increment_max_difference": 0.0,
+        "independent_quadrature_increment_max_difference": 8.881784197001252e-16,
+        "trivial_series_tail_bound": 2.471212126315512e-42,
+        "zero_height_table_error_assumption": 3e-09,
+        "zero_table_center_error_bounds": {
+          "0": 0.0,
+          "1": 0.00042445086749484114,
+          "2": 0.0007099394109703726,
+          "5": 0.001329458674686205,
+          "10": 0.0020200639676754084,
+          "20": 0.002947990838507699,
+          "50": 0.004593591884571758,
+          "100": 0.006189846190637549,
+          "200": 0.008113598319277602,
+          "500": 0.011188152322192214,
+          "1000": 0.013933358890184745,
+          "2000": 0.017051647321481716,
+          "5000": 0.021760731176296146,
+          "10000": 0.025775888174277537
+        },
+        "zero_table_increment_error_bounds": {
+          "0": 0.0,
+          "1": 1.200314784661788e-12,
+          "2": 2.400629569323576e-12,
+          "5": 6.001573923308939e-12,
+          "10": 1.2003147846617878e-11,
+          "20": 2.4006295693235757e-11,
+          "50": 6.00157392330894e-11,
+          "100": 1.200314784661788e-10,
+          "200": 2.400629569323576e-10,
+          "500": 6.001573923308939e-10,
+          "1000": 1.2003147846617878e-09,
+          "2000": 2.4006295693235757e-09,
+          "5000": 6.001573923308939e-09,
+          "10000": 1.2003147846617878e-08
+        }
+      }
+    },
+    {
+      "scale": "1,000 trillion",
+      "prime": 1000000000000037,
+      "anchor_count": 29844570422669,
+      "exact_midpoint": "29844570422669.5",
+      "window_radius": 200,
+      "offset_step": 0.25,
+      "primes_in_plot": 9,
+      "mobius_cutoff": 49,
+      "upper_symmetric_log_limits": [
+        -300000,
+        300000
+      ],
+      "upper_linear_threshold": 20,
+      "lower_linear_limits": [
+        -20,
+        20
+      ],
+      "stages": [
+        {
+          "zero_pairs": 0,
+          "reconstruction_at_prime_decimal": "29844570495887.9881680554659679469708794539",
+          "error_at_midpoint": 73218.48816805547,
+          "local_cycle_scale": null,
+          "zero_table_center_error_bound": 0.0,
+          "zero_table_increment_error_bound": 0.0,
+          "increment_min": -5.79059300029207,
+          "increment_max": 5.790593000292037
+        },
+        {
+          "zero_pairs": 1,
+          "reconstruction_at_prime_decimal": "29844570620004.8273103039419674489620739042",
+          "error_at_midpoint": 197335.32731030395,
+          "local_cycle_scale": 444521223020455.3,
+          "zero_table_center_error_bound": 0.013416294620855846,
+          "zero_table_increment_error_bound": 3.7949063749428434e-14,
+          "increment_min": -5.7905931160529995,
+          "increment_max": 5.790593116052966
+        },
+        {
+          "zero_pairs": 2,
+          "reconstruction_at_prime_decimal": "29844570653100.0087381509882958614621374287",
+          "error_at_midpoint": 230430.508738151,
+          "local_cycle_scale": 298885617907564.0,
+          "zero_table_center_error_bound": 0.022440185731629217,
+          "zero_table_increment_error_bound": 7.589812749885687e-14,
+          "increment_min": -5.790593457817114,
+          "increment_max": 5.790593457817081
+        },
+        {
+          "zero_pairs": 5,
+          "reconstruction_at_prime_decimal": "29844570571300.0151908820574337859239874697",
+          "error_at_midpoint": 148630.51519088206,
+          "local_cycle_scale": 190774967594689.97,
+          "zero_table_center_error_bound": 0.042022317850627225,
+          "zero_table_increment_error_bound": 1.8974531874714218e-13,
+          "increment_min": -5.790593461376507,
+          "increment_max": 5.790593461376473
+        },
+        {
+          "zero_pairs": 10,
+          "reconstruction_at_prime_decimal": "29844570632613.0812542864242864684495456185",
+          "error_at_midpoint": 209943.58125428643,
+          "local_cycle_scale": 126234709974502.81,
+          "zero_table_center_error_bound": 0.06385137932045268,
+          "zero_table_increment_error_bound": 3.7949063749428435e-13,
+          "increment_min": -5.7905932422346185,
+          "increment_max": 5.790593242234585
+        },
+        {
+          "zero_pairs": 20,
+          "reconstruction_at_prime_decimal": "29844570484891.6526520111579134349087284337",
+          "error_at_midpoint": 62222.15265201116,
+          "local_cycle_scale": 81446604874156.25,
+          "zero_table_center_error_bound": 0.09318184189948409,
+          "zero_table_increment_error_bound": 7.589812749885687e-13,
+          "increment_min": -5.790592461696537,
+          "increment_max": 5.790592461696503
+        },
+        {
+          "zero_pairs": 50,
+          "reconstruction_at_prime_decimal": "29844570460037.8892524053814472856615328877",
+          "error_at_midpoint": 37368.38925240538,
+          "local_cycle_scale": 43904019766535.55,
+          "zero_table_center_error_bound": 0.1451969752238431,
+          "zero_table_increment_error_bound": 1.897453187471422e-12,
+          "increment_min": -5.790590249053913,
+          "increment_max": 5.79059024905388
+        },
+        {
+          "zero_pairs": 100,
+          "reconstruction_at_prime_decimal": "29844570323248.9622093971668565963825881826",
+          "error_at_midpoint": -99420.53779060283,
+          "local_cycle_scale": 26564658158077.145,
+          "zero_table_center_error_bound": 0.19565232753914666,
+          "zero_table_increment_error_bound": 3.794906374942844e-12,
+          "increment_min": -5.790590406784869,
+          "increment_max": 5.790590406784836
+        },
+        {
+          "zero_pairs": 200,
+          "reconstruction_at_prime_decimal": "29844570418585.3563385706966690961112546085",
+          "error_at_midpoint": -4084.1436614293034,
+          "local_cycle_scale": 15851344455452.719,
+          "zero_table_center_error_bound": 0.25645942516075115,
+          "zero_table_increment_error_bound": 7.589812749885687e-12,
+          "increment_min": -5.790585955827347,
+          "increment_max": 5.790585955827313
+        },
+        {
+          "zero_pairs": 500,
+          "reconstruction_at_prime_decimal": "29844570390464.901241901717002472373617397",
+          "error_at_midpoint": -32204.598758098284,
+          "local_cycle_scale": 7745693366315.153,
+          "zero_table_center_error_bound": 0.3536417505834586,
+          "zero_table_increment_error_bound": 1.8974531874714215e-11,
+          "increment_min": -5.790584603496621,
+          "increment_max": 5.790584603496588
+        },
+        {
+          "zero_pairs": 1000,
+          "reconstruction_at_prime_decimal": "29844570423222.8026137332048802539056872316",
+          "error_at_midpoint": 553.3026137332049,
+          "local_cycle_scale": 4426578690646.266,
+          "zero_table_center_error_bound": 0.4404138670563834,
+          "zero_table_increment_error_bound": 3.794906374942843e-11,
+          "increment_min": -5.790579574310385,
+          "increment_max": 5.7905795743103505
+        },
+        {
+          "zero_pairs": 2000,
+          "reconstruction_at_prime_decimal": "29844570447120.1427729613474676048182213959",
+          "error_at_midpoint": 24450.642772961346,
+          "local_cycle_scale": 2497999869928.601,
+          "zero_table_center_error_bound": 0.5389785762157894,
+          "zero_table_increment_error_bound": 7.589812749885686e-11,
+          "increment_min": -5.790588138163703,
+          "increment_max": 5.790588138163662
+        },
+        {
+          "zero_pairs": 5000,
+          "reconstruction_at_prime_decimal": "29844570413443.9796724537476465209391655017",
+          "error_at_midpoint": -9225.520327546252,
+          "local_cycle_scale": 1153330482515.7698,
+          "zero_table_center_error_bound": 0.6878260900950579,
+          "zero_table_increment_error_bound": 1.8974531874714217e-10,
+          "increment_min": -5.79061021780057,
+          "increment_max": 5.7906102178005545
+        },
+        {
+          "zero_pairs": 10000,
+          "reconstruction_at_prime_decimal": "29844570424541.6750599711200887188287512063",
+          "error_at_midpoint": 1872.1750599711202,
+          "local_cycle_scale": 636092686715.7686,
+          "zero_table_center_error_bound": 0.8147395525456068,
+          "zero_table_increment_error_bound": 3.7949063749428433e-10,
+          "increment_min": -5.790621056377696,
+          "increment_max": 5.790621056377662
+        }
+      ],
+      "numerical_validation": {
+        "longdouble_significand_bits": 64,
+        "taylor_degree": 64,
+        "maximum_local_zero_phase": 1.9755565308009245e-09,
+        "mpmath_sample_Ei_max_absolute_difference": 1.0439631369931995e-12,
+        "direct_SciPy_center_max_absolute_difference": 4.55362441742309e-07,
+        "direct_mpmath_first_ten_center_difference": 4.861450830180293e-12,
+        "degree_48_vs_64_increment_max_difference": 0.0,
+        "independent_quadrature_increment_max_difference": 8.881784197001252e-16,
+        "trivial_series_tail_bound": 2.203128890140707e-42,
+        "zero_height_table_error_assumption": 3e-09,
+        "zero_table_center_error_bounds": {
+          "0": 0.0,
+          "1": 0.013416294620855846,
+          "2": 0.022440185731629217,
+          "5": 0.042022317850627225,
+          "10": 0.06385137932045268,
+          "20": 0.09318184189948409,
+          "50": 0.1451969752238431,
+          "100": 0.19565232753914666,
+          "200": 0.25645942516075115,
+          "500": 0.3536417505834586,
+          "1000": 0.4404138670563834,
+          "2000": 0.5389785762157894,
+          "5000": 0.6878260900950579,
+          "10000": 0.8147395525456068
+        },
+        "zero_table_increment_error_bounds": {
+          "0": 0.0,
+          "1": 3.7949063749428434e-14,
+          "2": 7.589812749885687e-14,
+          "5": 1.8974531874714218e-13,
+          "10": 3.7949063749428435e-13,
+          "20": 7.589812749885687e-13,
+          "50": 1.897453187471422e-12,
+          "100": 3.794906374942844e-12,
+          "200": 7.589812749885687e-12,
+          "500": 1.8974531874714215e-11,
+          "1000": 3.794906374942843e-11,
+          "2000": 7.589812749885686e-11,
+          "5000": 1.8974531874714217e-10,
+          "10000": 3.7949063749428433e-10
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,1333 @@
+{
+  "schema_version": 1,
+  "description": "Exact local prime-count staircases about the first prime strictly above each power-of-ten anchor.",
+  "counting_convention": "pi(x) counts primes <= x. At the focal prime p, the symmetric explicit-formula target is pi_0(p) = pi(p-) + 1/2.",
+  "integer_encoding": "All integers are JSON integers and are below 2^53. pi_midpoint values are also exact binary64 half-integers.",
+  "anchor_count_source": {
+    "author": "Tomas Oliveira e Silva",
+    "title": "Tables of values of pi(x) and of pi2(x): the first 23 values of pi(10^k)",
+    "landing_url": "https://sweet.ua.pt/tos/primes.html",
+    "data_url": "https://sweet.ua.pt/tos/primes/1d00.txt.gz",
+    "data_last_update": "2007-03-28",
+    "retrieved_utc_date": "2026-11-26",
+    "compressed_sha256": "d92cf2937c9153e5041ebe8907f93bc34d4a7c065826714bb1a6735d4b0de4ae",
+    "uncompressed_sha256": "1ea6c161e1958fb0c2a15ed1aef7bf531e8eb451e40df6bf8629ebd4c465995c",
+    "rows": {
+      "1000000": 78498,
+      "1000000000": 50847534,
+      "1000000000000": 37607912018,
+      "1000000000000000": 29844570422669
+    },
+    "method_described_by_author": "Own implementations of Lagarias-Miller-Odlyzko and Deleglise-Rivat prime-counting algorithms; landing page describes partial independent checks.",
+    "secondary_author_textbook_crosscheck": {
+      "author": "Victor Shoup",
+      "url": "https://www.shoup.net/ntb/ntb-b2.pdf",
+      "location": "Table 5.2, The distribution of primes",
+      "values_match": true,
+      "note": "Use this cross-check for pi(x) only. Its displayed li convention differs from the principal-value convention."
+    }
+  },
+  "primality_validation": {
+    "sympy_version": "1.14.0",
+    "sympy_docs_url": "https://docs.sympy.org/latest/modules/ntheory.html#sympy.ntheory.primetest.isprime",
+    "sympy_guaranteed_range": "n < 2^64",
+    "sympy_optional_gmpy_enabled": false,
+    "independent_test": "Separate integer-only strong Miller-Rabin implementation using the following bases; every integer in each 1001-integer window was compared to SymPy isprime.",
+    "deterministic_64bit_miller_rabin_bases": [
+      2,
+      325,
+      9375,
+      28178,
+      450775,
+      9780504,
+      1795265022
+    ],
+    "focal_certificates": "Full-factorization Lucas criterion with recursively certified prime factors of n-1. All certificates verified using only Python integer multiplication, modular exponentiation and gcd, without SymPy in the verification step.",
+    "lucas_criterion": "If n-1 is completely factored into already-certified primes q, a^(n-1) = 1 modulo n, and gcd(a^((n-1)/q)-1,n)=1 for every distinct q dividing n-1, then n is prime.",
+    "verified_certificate_count": 27,
+    "all_checks_passed": true,
+    "scope_note": "The four anchor prime counts are read from the primary computational table; they are not independently recomputed here."
+  },
+  "windows": [
+    {
+      "scale_label": "1 million",
+      "anchor_exponent": 6,
+      "anchor": 1000000,
+      "focal_prime": 1000003,
+      "pi_anchor": 78498,
+      "pi_before_prime": 78498,
+      "pi_at_prime": 78499,
+      "pi_midpoint": 78498.5,
+      "pi_midpoint_exact": "78498.5",
+      "window_radius": 500,
+      "window_start": 999503,
+      "window_end": 1000503,
+      "endpoints_inclusive": true,
+      "pi_before_window": 78466,
+      "primes": [
+        999521,
+        999529,
+        999541,
+        999553,
+        999563,
+        999599,
+        999611,
+        999613,
+        999623,
+        999631,
+        999653,
+        999667,
+        999671,
+        999683,
+        999721,
+        999727,
+        999749,
+        999763,
+        999769,
+        999773,
+        999809,
+        999853,
+        999863,
+        999883,
+        999907,
+        999917,
+        999931,
+        999953,
+        999959,
+        999961,
+        999979,
+        999983,
+        1000003,
+        1000033,
+        1000037,
+        1000039,
+        1000081,
+        1000099,
+        1000117,
+        1000121,
+        1000133,
+        1000151,
+        1000159,
+        1000171,
+        1000183,
+        1000187,
+        1000193,
+        1000199,
+        1000211,
+        1000213,
+        1000231,
+        1000249,
+        1000253,
+        1000273,
+        1000289,
+        1000291,
+        1000303,
+        1000313,
+        1000333,
+        1000357,
+        1000367,
+        1000381,
+        1000393,
+        1000397,
+        1000403,
+        1000409,
+        1000423,
+        1000427,
+        1000429,
+        1000453,
+        1000457
+      ],
+      "prime_offsets_from_focal": [
+        -482,
+        -474,
+        -462,
+        -450,
+        -440,
+        -404,
+        -392,
+        -390,
+        -380,
+        -372,
+        -350,
+        -336,
+        -332,
+        -320,
+        -282,
+        -276,
+        -254,
+        -240,
+        -234,
+        -230,
+        -194,
+        -150,
+        -140,
+        -120,
+        -96,
+        -86,
+        -72,
+        -50,
+        -44,
+        -42,
+        -24,
+        -20,
+        0,
+        30,
+        34,
+        36,
+        78,
+        96,
+        114,
+        118,
+        130,
+        148,
+        156,
+        168,
+        180,
+        184,
+        190,
+        196,
+        208,
+        210,
+        228,
+        246,
+        250,
+        270,
+        286,
+        288,
+        300,
+        310,
+        330,
+        354,
+        364,
+        378,
+        390,
+        394,
+        400,
+        406,
+        420,
+        424,
+        426,
+        450,
+        454
+      ],
+      "validation": {
+        "window_integers_checked": 1001,
+        "independent_mr_matches_sympy": true,
+        "focal_lucas_certificate": "1000003",
+        "no_primes_between_anchor_and_focal": true,
+        "intervening_composites_with_proper_factors": [
+          {
+            "n": 1000001,
+            "proper_factor": 101
+          },
+          {
+            "n": 1000002,
+            "proper_factor": 2
+          }
+        ]
+      }
+    },
+    {
+      "scale_label": "1 billion",
+      "anchor_exponent": 9,
+      "anchor": 1000000000,
+      "focal_prime": 1000000007,
+      "pi_anchor": 50847534,
+      "pi_before_prime": 50847534,
+      "pi_at_prime": 50847535,
+      "pi_midpoint": 50847534.5,
+      "pi_midpoint_exact": "50847534.5",
+      "window_radius": 500,
+      "window_start": 999999507,
+      "window_end": 1000000507,
+      "endpoints_inclusive": true,
+      "pi_before_window": 50847516,
+      "primes": [
+        999999527,
+        999999541,
+        999999587,
+        999999599,
+        999999607,
+        999999613,
+        999999667,
+        999999677,
+        999999733,
+        999999739,
+        999999751,
+        999999757,
+        999999761,
+        999999797,
+        999999883,
+        999999893,
+        999999929,
+        999999937,
+        1000000007,
+        1000000009,
+        1000000021,
+        1000000033,
+        1000000087,
+        1000000093,
+        1000000097,
+        1000000103,
+        1000000123,
+        1000000181,
+        1000000207,
+        1000000223,
+        1000000241,
+        1000000271,
+        1000000289,
+        1000000297,
+        1000000321,
+        1000000349,
+        1000000363,
+        1000000403,
+        1000000409,
+        1000000411,
+        1000000427,
+        1000000433,
+        1000000439,
+        1000000447,
+        1000000453,
+        1000000459,
+        1000000483
+      ],
+      "prime_offsets_from_focal": [
+        -480,
+        -466,
+        -420,
+        -408,
+        -400,
+        -394,
+        -340,
+        -330,
+        -274,
+        -268,
+        -256,
+        -250,
+        -246,
+        -210,
+        -124,
+        -114,
+        -78,
+        -70,
+        0,
+        2,
+        14,
+        26,
+        80,
+        86,
+        90,
+        96,
+        116,
+        174,
+        200,
+        216,
+        234,
+        264,
+        282,
+        290,
+        314,
+        342,
+        356,
+        396,
+        402,
+        404,
+        420,
+        426,
+        432,
+        440,
+        446,
+        452,
+        476
+      ],
+      "validation": {
+        "window_integers_checked": 1001,
+        "independent_mr_matches_sympy": true,
+        "focal_lucas_certificate": "1000000007",
+        "no_primes_between_anchor_and_focal": true,
+        "intervening_composites_with_proper_factors": [
+          {
+            "n": 1000000001,
+            "proper_factor": 7
+          },
+          {
+            "n": 1000000002,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000003,
+            "proper_factor": 23
+          },
+          {
+            "n": 1000000004,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000005,
+            "proper_factor": 3
+          },
+          {
+            "n": 1000000006,
+            "proper_factor": 2
+          }
+        ]
+      }
+    },
+    {
+      "scale_label": "1 trillion",
+      "anchor_exponent": 12,
+      "anchor": 1000000000000,
+      "focal_prime": 1000000000039,
+      "pi_anchor": 37607912018,
+      "pi_before_prime": 37607912018,
+      "pi_at_prime": 37607912019,
+      "pi_midpoint": 37607912018.5,
+      "pi_midpoint_exact": "37607912018.5",
+      "window_radius": 500,
+      "window_start": 999999999539,
+      "window_end": 1000000000539,
+      "endpoints_inclusive": true,
+      "pi_before_window": 37607911999,
+      "primes": [
+        999999999571,
+        999999999577,
+        999999999589,
+        999999999599,
+        999999999611,
+        999999999617,
+        999999999673,
+        999999999697,
+        999999999707,
+        999999999767,
+        999999999847,
+        999999999857,
+        999999999863,
+        999999999877,
+        999999999899,
+        999999999937,
+        999999999959,
+        999999999961,
+        999999999989,
+        1000000000039,
+        1000000000061,
+        1000000000063,
+        1000000000091,
+        1000000000121,
+        1000000000163,
+        1000000000169,
+        1000000000177,
+        1000000000189,
+        1000000000193,
+        1000000000211,
+        1000000000271,
+        1000000000303,
+        1000000000331,
+        1000000000333,
+        1000000000339,
+        1000000000459,
+        1000000000471,
+        1000000000537
+      ],
+      "prime_offsets_from_focal": [
+        -468,
+        -462,
+        -450,
+        -440,
+        -428,
+        -422,
+        -366,
+        -342,
+        -332,
+        -272,
+        -192,
+        -182,
+        -176,
+        -162,
+        -140,
+        -102,
+        -80,
+        -78,
+        -50,
+        0,
+        22,
+        24,
+        52,
+        82,
+        124,
+        130,
+        138,
+        150,
+        154,
+        172,
+        232,
+        264,
+        292,
+        294,
+        300,
+        420,
+        432,
+        498
+      ],
+      "validation": {
+        "window_integers_checked": 1001,
+        "independent_mr_matches_sympy": true,
+        "focal_lucas_certificate": "1000000000039",
+        "no_primes_between_anchor_and_focal": true,
+        "intervening_composites_with_proper_factors": [
+          {
+            "n": 1000000000001,
+            "proper_factor": 73
+          },
+          {
+            "n": 1000000000002,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000003,
+            "proper_factor": 61
+          },
+          {
+            "n": 1000000000004,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000005,
+            "proper_factor": 3
+          },
+          {
+            "n": 1000000000006,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000007,
+            "proper_factor": 34519
+          },
+          {
+            "n": 1000000000008,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000009,
+            "proper_factor": 29
+          },
+          {
+            "n": 1000000000010,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000011,
+            "proper_factor": 3
+          },
+          {
+            "n": 1000000000012,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000013,
+            "proper_factor": 7
+          },
+          {
+            "n": 1000000000014,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000015,
+            "proper_factor": 5
+          },
+          {
+            "n": 1000000000016,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000017,
+            "proper_factor": 3
+          },
+          {
+            "n": 1000000000018,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000019,
+            "proper_factor": 1601
+          },
+          {
+            "n": 1000000000020,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000021,
+            "proper_factor": 11
+          },
+          {
+            "n": 1000000000022,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000023,
+            "proper_factor": 3
+          },
+          {
+            "n": 1000000000024,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000025,
+            "proper_factor": 5
+          },
+          {
+            "n": 1000000000026,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000027,
+            "proper_factor": 7
+          },
+          {
+            "n": 1000000000028,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000029,
+            "proper_factor": 3
+          },
+          {
+            "n": 1000000000030,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000031,
+            "proper_factor": 19
+          },
+          {
+            "n": 1000000000032,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000033,
+            "proper_factor": 23
+          },
+          {
+            "n": 1000000000034,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000035,
+            "proper_factor": 3
+          },
+          {
+            "n": 1000000000036,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000037,
+            "proper_factor": 53
+          },
+          {
+            "n": 1000000000038,
+            "proper_factor": 2
+          }
+        ]
+      }
+    },
+    {
+      "scale_label": "1000 trillion",
+      "anchor_exponent": 15,
+      "anchor": 1000000000000000,
+      "focal_prime": 1000000000000037,
+      "pi_anchor": 29844570422669,
+      "pi_before_prime": 29844570422669,
+      "pi_at_prime": 29844570422670,
+      "pi_midpoint": 29844570422669.5,
+      "pi_midpoint_exact": "29844570422669.5",
+      "window_radius": 500,
+      "window_start": 999999999999537,
+      "window_end": 1000000000000537,
+      "endpoints_inclusive": true,
+      "pi_before_window": 29844570422659,
+      "primes": [
+        999999999999571,
+        999999999999577,
+        999999999999643,
+        999999999999659,
+        999999999999809,
+        999999999999827,
+        999999999999877,
+        999999999999883,
+        999999999999947,
+        999999999999989,
+        1000000000000037,
+        1000000000000091,
+        1000000000000159,
+        1000000000000187,
+        1000000000000223,
+        1000000000000241,
+        1000000000000249,
+        1000000000000259,
+        1000000000000273,
+        1000000000000279,
+        1000000000000297,
+        1000000000000357,
+        1000000000000399,
+        1000000000000403,
+        1000000000000487,
+        1000000000000513
+      ],
+      "prime_offsets_from_focal": [
+        -466,
+        -460,
+        -394,
+        -378,
+        -228,
+        -210,
+        -160,
+        -154,
+        -90,
+        -48,
+        0,
+        54,
+        122,
+        150,
+        186,
+        204,
+        212,
+        222,
+        236,
+        242,
+        260,
+        320,
+        362,
+        366,
+        450,
+        476
+      ],
+      "validation": {
+        "window_integers_checked": 1001,
+        "independent_mr_matches_sympy": true,
+        "focal_lucas_certificate": "1000000000000037",
+        "no_primes_between_anchor_and_focal": true,
+        "intervening_composites_with_proper_factors": [
+          {
+            "n": 1000000000000001,
+            "proper_factor": 7
+          },
+          {
+            "n": 1000000000000002,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000000003,
+            "proper_factor": 14902357
+          },
+          {
+            "n": 1000000000000004,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000000005,
+            "proper_factor": 3
+          },
+          {
+            "n": 1000000000000006,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000000007,
+            "proper_factor": 47
+          },
+          {
+            "n": 1000000000000008,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000000009,
+            "proper_factor": 179
+          },
+          {
+            "n": 1000000000000010,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000000011,
+            "proper_factor": 3
+          },
+          {
+            "n": 1000000000000012,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000000013,
+            "proper_factor": 1091
+          },
+          {
+            "n": 1000000000000014,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000000015,
+            "proper_factor": 5
+          },
+          {
+            "n": 1000000000000016,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000000017,
+            "proper_factor": 3
+          },
+          {
+            "n": 1000000000000018,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000000019,
+            "proper_factor": 1151
+          },
+          {
+            "n": 1000000000000020,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000000021,
+            "proper_factor": 47293
+          },
+          {
+            "n": 1000000000000022,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000000023,
+            "proper_factor": 3
+          },
+          {
+            "n": 1000000000000024,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000000025,
+            "proper_factor": 5
+          },
+          {
+            "n": 1000000000000026,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000000027,
+            "proper_factor": 13
+          },
+          {
+            "n": 1000000000000028,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000000029,
+            "proper_factor": 3
+          },
+          {
+            "n": 1000000000000030,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000000031,
+            "proper_factor": 191
+          },
+          {
+            "n": 1000000000000032,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000000033,
+            "proper_factor": 34843
+          },
+          {
+            "n": 1000000000000034,
+            "proper_factor": 2
+          },
+          {
+            "n": 1000000000000035,
+            "proper_factor": 3
+          },
+          {
+            "n": 1000000000000036,
+            "proper_factor": 2
+          }
+        ]
+      }
+    }
+  ],
+  "lucas_certificates": {
+    "2": {
+      "n": 2,
+      "type": "base_prime_2"
+    },
+    "3": {
+      "n": 3,
+      "type": "full_factorization_lucas",
+      "witness": 2,
+      "n_minus_1_factorization": [
+        [
+          2,
+          1
+        ]
+      ]
+    },
+    "5": {
+      "n": 5,
+      "type": "full_factorization_lucas",
+      "witness": 2,
+      "n_minus_1_factorization": [
+        [
+          2,
+          2
+        ]
+      ]
+    },
+    "7": {
+      "n": 7,
+      "type": "full_factorization_lucas",
+      "witness": 3,
+      "n_minus_1_factorization": [
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ]
+      ]
+    },
+    "11": {
+      "n": 11,
+      "type": "full_factorization_lucas",
+      "witness": 2,
+      "n_minus_1_factorization": [
+        [
+          2,
+          1
+        ],
+        [
+          5,
+          1
+        ]
+      ]
+    },
+    "13": {
+      "n": 13,
+      "type": "full_factorization_lucas",
+      "witness": 2,
+      "n_minus_1_factorization": [
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          1
+        ]
+      ]
+    },
+    "17": {
+      "n": 17,
+      "type": "full_factorization_lucas",
+      "witness": 3,
+      "n_minus_1_factorization": [
+        [
+          2,
+          4
+        ]
+      ]
+    },
+    "29": {
+      "n": 29,
+      "type": "full_factorization_lucas",
+      "witness": 2,
+      "n_minus_1_factorization": [
+        [
+          2,
+          2
+        ],
+        [
+          7,
+          1
+        ]
+      ]
+    },
+    "31": {
+      "n": 31,
+      "type": "full_factorization_lucas",
+      "witness": 3,
+      "n_minus_1_factorization": [
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          5,
+          1
+        ]
+      ]
+    },
+    "37": {
+      "n": 37,
+      "type": "full_factorization_lucas",
+      "witness": 2,
+      "n_minus_1_factorization": [
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ]
+      ]
+    },
+    "41": {
+      "n": 41,
+      "type": "full_factorization_lucas",
+      "witness": 6,
+      "n_minus_1_factorization": [
+        [
+          2,
+          3
+        ],
+        [
+          5,
+          1
+        ]
+      ]
+    },
+    "83": {
+      "n": 83,
+      "type": "full_factorization_lucas",
+      "witness": 2,
+      "n_minus_1_factorization": [
+        [
+          2,
+          1
+        ],
+        [
+          41,
+          1
+        ]
+      ]
+    },
+    "101": {
+      "n": 101,
+      "type": "full_factorization_lucas",
+      "witness": 2,
+      "n_minus_1_factorization": [
+        [
+          2,
+          2
+        ],
+        [
+          5,
+          2
+        ]
+      ]
+    },
+    "167": {
+      "n": 167,
+      "type": "full_factorization_lucas",
+      "witness": 5,
+      "n_minus_1_factorization": [
+        [
+          2,
+          1
+        ],
+        [
+          83,
+          1
+        ]
+      ]
+    },
+    "499": {
+      "n": 499,
+      "type": "full_factorization_lucas",
+      "witness": 7,
+      "n_minus_1_factorization": [
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          83,
+          1
+        ]
+      ]
+    },
+    "3907": {
+      "n": 3907,
+      "type": "full_factorization_lucas",
+      "witness": 2,
+      "n_minus_1_factorization": [
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          31,
+          1
+        ]
+      ]
+    },
+    "9901": {
+      "n": 9901,
+      "type": "full_factorization_lucas",
+      "witness": 2,
+      "n_minus_1_factorization": [
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          11,
+          1
+        ]
+      ]
+    },
+    "148721": {
+      "n": 148721,
+      "type": "full_factorization_lucas",
+      "witness": 6,
+      "n_minus_1_factorization": [
+        [
+          2,
+          4
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          11,
+          1
+        ],
+        [
+          13,
+          2
+        ]
+      ]
+    },
+    "166667": {
+      "n": 166667,
+      "type": "full_factorization_lucas",
+      "witness": 2,
+      "n_minus_1_factorization": [
+        [
+          2,
+          1
+        ],
+        [
+          167,
+          1
+        ],
+        [
+          499,
+          1
+        ]
+      ]
+    },
+    "250049": {
+      "n": 250049,
+      "type": "full_factorization_lucas",
+      "witness": 3,
+      "n_minus_1_factorization": [
+        [
+          2,
+          6
+        ],
+        [
+          3907,
+          1
+        ]
+      ]
+    },
+    "1000003": {
+      "n": 1000003,
+      "type": "full_factorization_lucas",
+      "witness": 2,
+      "n_minus_1_factorization": [
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          166667,
+          1
+        ]
+      ]
+    },
+    "26005097": {
+      "n": 26005097,
+      "type": "full_factorization_lucas",
+      "witness": 5,
+      "n_minus_1_factorization": [
+        [
+          2,
+          3
+        ],
+        [
+          13,
+          1
+        ],
+        [
+          250049,
+          1
+        ]
+      ]
+    },
+    "500000003": {
+      "n": 500000003,
+      "type": "full_factorization_lucas",
+      "witness": 2,
+      "n_minus_1_factorization": [
+        [
+          2,
+          1
+        ],
+        [
+          41,
+          2
+        ],
+        [
+          148721,
+          1
+        ]
+      ]
+    },
+    "1000000007": {
+      "n": 1000000007,
+      "type": "full_factorization_lucas",
+      "witness": 5,
+      "n_minus_1_factorization": [
+        [
+          2,
+          1
+        ],
+        [
+          500000003,
+          1
+        ]
+      ]
+    },
+    "965250965251": {
+      "n": 965250965251,
+      "type": "full_factorization_lucas",
+      "witness": 2,
+      "n_minus_1_factorization": [
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          11,
+          1
+        ],
+        [
+          13,
+          1
+        ],
+        [
+          101,
+          1
+        ],
+        [
+          9901,
+          1
+        ]
+      ]
+    },
+    "1000000000039": {
+      "n": 1000000000039,
+      "type": "full_factorization_lucas",
+      "witness": 3,
+      "n_minus_1_factorization": [
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          13,
+          1
+        ],
+        [
+          17,
+          1
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          26005097,
+          1
+        ]
+      ]
+    },
+    "1000000000000037": {
+      "n": 1000000000000037,
+      "type": "full_factorization_lucas",
+      "witness": 2,
+      "n_minus_1_factorization": [
+        [
+          2,
+          2
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          37,
+          1
+        ],
+        [
+          965250965251,
+          1
+        ]
+      ]
+    }
+  }
+}

@@ -24,6 +24,7 @@ GROUPS = {
     "zeta": "animate_zeta",
     "reconstruction": "animate_reconstruction",
     "error": "animate_error_bound",
+    "large-primes": "animate_large_primes",
 }
 
 
